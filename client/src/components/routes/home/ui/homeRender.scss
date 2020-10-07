@@ -1,0 +1,95 @@
+.home-layout{
+    text-align: center;
+    display: flex;
+    background: #000;
+    .quiz-maker{
+        border-right: 1px solid #595959;
+        display: table;
+        float: left;
+        width: 49%;
+        height: 100vh;
+    }
+    
+    .quiz-taker{
+        border-left: 1px solid #595959;
+        display: table;
+        float: right;
+        width: 49%;
+        height: 100vh;  
+    }
+
+    .content{
+        vertical-align: middle;
+        display: table-cell;
+        .img-text{
+            position: relative;
+
+            div{
+                cursor: pointer;
+                position: absolute;
+                top: 50%;//calc(100vh - 75%);
+                left: 50%;
+                color: #fff;
+                border: 2px solid;
+                font-size: 18px;
+                font-weight: bold;
+                padding: 20px 30px 20px 30px;
+                transition: transform .75s;
+                border-radius: 10px;
+                transform: translate(-50%, -50%);
+            }
+            div:hover{
+                color : #000;
+                background-color: #fff;
+                border: 2px solid #fff;
+                transition: background-color 5s ease-out;
+                transition: color 0.5s ease-out;
+                -ms-transform: background-color 2s ease-out;
+                -webkit-transform: color 0.5s ease-out;
+                -ms-transform: background-color 2s ease-out;
+                -webkit-transform: color 0.5s ease-out;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+            .HelpIcon{
+                color: #fff;
+                position: absolute;
+                right: 7%;
+                top: 2%;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .home-images{
+        opacity: .4;
+        width: 90%;
+        border-radius: 10px;
+        height: calc(100vh - 90px);
+        transition: transform 3.25s;
+        box-shadow: 0 4px 8px 0 #000000, 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .home-images:hover {
+        -ms-transform: scale(1.5); 
+        -webkit-transform: scale(1.5); 
+        transform: scale(1.1); 
+    }
+}
+//mobile
+@media only screen and (max-width: 600px) {
+ .home-layout{
+    display: block;
+
+    .qtm{
+        border : none;
+        float: none;
+        width: auto;
+        height: 50vh;
+    }
+
+    .home-images{
+        opacity: .4;
+        height: 45vh;
+    }
+
+ }
+}
