@@ -4,14 +4,14 @@ import HomeRender from './ui/homeRender';
 import QuizzerRoutes from '../../../shared/routes'
 export default function Home() {
     const history = useHistory();
-    const submitModify = (quizId: String) => {
-        history.push(`${QuizzerRoutes.quizMaker}/${quizId}`);
+    function submitModify(quizId: String): void {
+        history.push(`${QuizzerRoutes.quizMaker}/${quizId.trim()}`);
     }
-    const createNew = () => {
+    function createNew(): void {
         history.push(`${QuizzerRoutes.quizMaker}`);
     }
-    const submitQuiz = (quizId: String) => {
-        history.push(`${QuizzerRoutes.quizTaker}/${quizId}`);
+    function submitQuiz(quizId: String): void {
+        history.push(`${QuizzerRoutes.quizTaker}/${quizId.trim()}`);
     }
     return <HomeRender
         submitModify={submitModify}
