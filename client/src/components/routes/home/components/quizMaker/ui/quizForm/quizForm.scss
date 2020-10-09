@@ -1,0 +1,118 @@
+div{
+
+    .form-field{
+        transition: box-shadow 2s;
+        padding: 10px;
+        background-color: #f3f3fa;
+        border-radius: 7px;
+        margin-bottom : 2%;
+    }
+
+    .form-field:hover{
+        box-shadow: 4px 3px 3px -1px #888888;
+    }
+
+    .form-text{
+        // position: relative;
+        // display: flex;
+
+        .text{
+            float: left;
+            font-size: 17.5px;
+        }
+        .text-color{
+            color: #263ff4;
+        }
+
+        .help{
+            float: right;
+            right: 0;
+
+            .MuiSvgIcon-root{
+                width: 20px !important;
+                cursor: pointer;
+            }
+        }
+        TextField{
+            font-size: 12px;
+        }
+    }
+    //subscribe
+    .subscribe{
+        .MuiButtonBase-root{
+            padding: 10px 10px 10px 0px;
+        }
+    }
+    //subscribe-end
+
+    //start-end-time
+    .start-end-time{
+        position: relative;
+        .MuiFormLabel-root{
+            font-weight: bold;
+            color: #263ff4 !important;
+        }
+        .MuiInput-formControl{
+            font-size: 14px;
+        }
+        .start{
+            width: 50%;
+            .MuiFormControl-root{
+                cursor: pointer;
+                width: 100% !important;
+            }
+        }
+        .end{
+            width: 46%;
+            position: absolute;
+            top: 10px;
+            right: 5px;
+            .MuiFormControl-root{
+                cursor: pointer;
+                width: 100% !important;
+            }
+        }
+    }
+    //start-end-time end
+
+    //submit
+    .submit{
+        .MuiButtonBase-root{
+            width: 100%;
+            font-size: 17px;
+            border-radius: 5px;
+            text-transform: none;
+        }
+    }
+    //submit - end
+}
+.required{
+    color: red;
+}
+.text-icon{
+    width: 15px !important;
+}
+
+//mobile
+
+@media only screen and (max-width: 600px) {
+    .start-end-time{
+        .end{
+            width: 100% !important;
+            text-align: center;
+            position: inherit !important;
+            padding: 0px 0px 15px 0px;
+            .MuiFormControl-root{
+                width: 100% !important;
+            }
+        }
+        .start{
+            width: 100% !important;
+            text-align: center;
+            padding: 5px 0px 10px 0px;  
+            .MuiFormControl-root{
+                width: 100% !important;
+            }
+        }
+    }
+}

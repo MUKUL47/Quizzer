@@ -1,0 +1,32 @@
+div{
+
+    .quizMakerBg{
+        background-image: url('../../../../../../assets/images/quiz_maker_bg.jpg');
+        top: 0px;
+        left: 0px;
+        height: 100vh;
+        z-index: -1;
+        width: 100%;
+        position: absolute;
+        opacity: 0.55;
+        pointer-events: none;
+    }
+
+    .quiz-maker{
+        display: table;
+        margin: 0 auto;
+        padding: 10px;
+
+        .layout{
+            vertical-align:middle;
+            display: table-cell;
+            margin: 0 auto;
+            width: 45%;
+            padding: 5% 0% 5% 0%;
+            background: #fff;
+            padding: 20px;
+            border-radius: 7.5px;
+            box-shadow: 10px 7px 10px -1px #888888;
+        } 
+    }
+}

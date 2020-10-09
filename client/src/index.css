@@ -21,3 +21,9 @@ code {
 .flex{
     display: flex;
 }
+.input-width-100{
+  width: 100% !important;
+}
+.float-right{
+  float: right;
+}
