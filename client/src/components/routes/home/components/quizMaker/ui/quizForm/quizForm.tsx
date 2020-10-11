@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './quizForm.scss'
 import {
     TextField,
@@ -18,6 +18,7 @@ export default function QuizForm() {
     // const [quizStartTime, setQuizStartTime] = useState()
     return (
         <div>
+            <div className="header-name-struct">Form Structure</div>
             <div className="name form-field">
                 <div className="form-text">
                     <span className="text text-color">Name {required()}</span>
@@ -72,57 +73,68 @@ export default function QuizForm() {
                     }}
                 />
             </div>
-            <div className="name form-field">
-                <div className="form-text subscribe">
-                    <Checkbox color="primary" />
-                    <span className="text-color">Subscribe to students results.</span>
-                    {help("You will recieve notifications on your email")}
+
+            <div className="sub-dur">
+                <div className="name form-field sub">
+                    <div className="form-text subscribe">
+                        <Checkbox color="primary" />
+                        <span className="text-color">Subscribe to students results.</span>
+                        {help("You will recieve notifications on your email")}
+                    </div>
                 </div>
-            </div>
-            <div className="name form-field start-end-time">
-                <div className="start">
+
+                <div className="name form-field">
+                    <div className="form-text">
+                        <span className="text text-color">Quiz Duration {required()}</span>
+                        {help('Total duration of the quiz')}
+                    </div>
                     <TextField
-                        label="Quiz start time *"
-                        type="datetime-local"
-                        defaultValue="2017-05-24T10:30"
-                        InputLabelProps={{
-                            shrink: true,
+                        id="standard-basic"
+                        type="number"
+                        className="input-width-100"
+                        placeholder="5 (Minutes)"
+                        InputProps={{
+                            startAdornment: (
+                                < InputAdornment position="start" >
+                                    <AccessAlarmIcon className="text-icon" />
+                                </InputAdornment>
+                            )
                         }}
                     />
                 </div>
-                <div className="end end-time">
-                    <TextField
-                        onChange={e => console.log(e, e.target.value)}
-                        label="Quiz expiry time"
-                        type="datetime-local"
-                        defaultValue="2017-05-24T10:30"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
+            </div>
+
+            <div className="sub-dur">
+                <div className="name form-field start-end-time sub">
+                    <div className="start">
+                        <TextField
+                            label="Quiz start time *"
+                            type="datetime-local"
+                            defaultValue="2017-05-24T10:30"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </div>
+                </div>
+                <div className="name form-field start-end-time">
+                    <div className="end end-time">
+                        <TextField
+                            onChange={e => console.log(e, e.target.value)}
+                            label="Quiz expiry time"
+                            type="datetime-local"
+                            defaultValue="2017-05-24T10:30"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </div>
                 </div>
             </div>
-            <div className="name form-field">
-                <div className="form-text">
-                    <span className="text text-color">Quiz Duration {required()}</span>
-                    {help('Total duration of the quiz')}
-                </div>
-                <TextField
-                    id="standard-basic"
-                    type="number"
-                    className="input-width-100"
-                    placeholder="5 (Minutes)"
-                    InputProps={{
-                        startAdornment: (
-                            < InputAdornment position="start" >
-                                <AccessAlarmIcon className="text-icon" />
-                            </InputAdornment>
-                        )
-                    }}
-                />
-            </div>
+
+
             <div className="submit">
-                <Button variant="contained" color="primary">Create Quiz</Button>
+                <Button variant="contained" color="primary">Prepare Questions</Button>
             </div>
 
         </div>

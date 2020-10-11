@@ -14,6 +14,7 @@ import TitleIcon from '@material-ui/icons/Title';
 import EmailIcon from '@material-ui/icons/Email';
 import Checkbox from '@material-ui/core/Checkbox';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
+import HomeIcon from '@material-ui/icons/Home';
 export {
     Modal,
     HelpIcon,
@@ -30,5 +31,6 @@ export {
     TitleIcon,
     EmailIcon,
     Checkbox,
-    AccessAlarmIcon
+    AccessAlarmIcon,
+    HomeIcon
 }
