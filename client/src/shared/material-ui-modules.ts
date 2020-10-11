@@ -16,6 +16,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import HomeIcon from '@material-ui/icons/Home';
 import AddIcon from '@material-ui/icons/Add';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import CreateIcon from '@material-ui/icons/Create';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
 export {
     Modal,
     HelpIcon,
@@ -34,5 +38,9 @@ export {
     Checkbox,
     AccessAlarmIcon,
     HomeIcon,
-    AddIcon
+    AddIcon,
+    RadioButtonCheckedIcon,
+    CreateIcon,
+    CheckCircleIcon,
+    CancelIcon
 }

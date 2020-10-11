@@ -1,5 +1,4 @@
 div{
-
     .header-name-struct{
         font-size: 20px;
         padding: 0px 0px 20px 0px;
@@ -9,7 +8,7 @@ div{
         transition: box-shadow 2s;
         padding: 7px;
         background-color: #f3f3fa;
-        border-radius: 7px;
+        border-radius: 5px;
         margin-bottom : 2%;
     }
     .no-question{
@@ -33,4 +32,105 @@ div{
         color: #fff;
         cursor: pointer;
     }
+
+    //question
+    .question-dialog{
+        padding: 10px;
+    }
+    .MuiPaper-root{
+        width: 100% !important;
+    }//change later
+    //question-end
+
+    .question-icon{
+        width: 18.5px;
+        position: absolute;
+        right: 0;
+    }
+    .main-question{
+                    border: .2px solid lightgrey;
+    }
+    //choices-tab
+    .choices{
+            max-height: 295px;
+            overflow: auto;
+
+            .tab{
+                margin-bottom: 7.5px;
+                position: relative;
+                cursor: pointer;
+
+                .form-field{
+                    margin-bottom: -2px;
+                    padding: 12px;
+                    border: 0.5px solid #8888;
+
+                    .choice-edit{
+                        width: 90%;
+                        border: transparent;
+                        background: transparent;
+                        outline: none;
+                        font-size: 16px;
+                    }
+                    
+                    .choice-index{
+                        opacity: .5;
+                    }                    
+                }
+
+                .correct-choice-check{
+                    background: #c0eebc;
+                }
+
+               .form-field:hover{
+                    background: #ced4f6;
+                    transition: background-color .5s ease-out;
+                }
+
+                .choice{
+                        position: absolute;
+                        right: 7.5%;
+                        width: 18.5px;
+                        top: 9.5px;
+                        cursor: pointer;
+                        path:hover{
+                            color: green;
+                        }
+                }
+
+                .correct{
+                    right: 9.5%;
+                }
+
+                .cancel{
+                    right: 2%;
+                    path:hover{
+                        color: red;
+                    }
+                }
+        }
+    }
+    //choices-tab end
+
+    //choices-tab-inp
+    .choices-tab-inp{
+
+        .form-field{
+            position: relative;
+            background-color: transparent;            
+        }
+    }
+    //choices-tab-inp end
 }
+
+//extras if conditionals
+.margin-top-10{
+    margin-top: -10px;
+}
+.correct-tab-color{
+    background-color: #cef6e2 !important;
+}
+.correct-text-bold{
+    font-weight: bold;
+}
+//extras end
