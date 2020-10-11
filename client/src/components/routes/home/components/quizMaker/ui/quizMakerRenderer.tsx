@@ -1,6 +1,7 @@
 import React from 'react';
 import './quizMakerRenderer.scss'
 import QuizForm from './quizForm/quizForm';
+import QuestionLayout from './questionLayout/questionlayout';
 import { HomeIcon } from '../../../../../../shared/material-ui-modules';
 export default function QuizMakerLayout() {
     const layout = (
@@ -13,7 +14,8 @@ export default function QuizMakerLayout() {
                 <div className="title">Quiz Maker</div>
             </div>
             <div className="quiz-maker quiz-m-p-100">
-                <div className="layout"><QuizForm /></div>
+                {/* <div className="layout"><QuizForm /></div> */}
+                <div className="layout"><QuestionLayout /></div>
             </div>
         </div>
     )

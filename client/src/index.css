@@ -27,3 +27,6 @@ code {
 .float-right{
   float: right;
 }
+.pos-relative{
+  position: relative;
+}

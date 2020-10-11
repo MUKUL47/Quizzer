@@ -15,6 +15,7 @@ import EmailIcon from '@material-ui/icons/Email';
 import Checkbox from '@material-ui/core/Checkbox';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import HomeIcon from '@material-ui/icons/Home';
+import AddIcon from '@material-ui/icons/Add';
 export {
     Modal,
     HelpIcon,
@@ -32,5 +33,6 @@ export {
     EmailIcon,
     Checkbox,
     AccessAlarmIcon,
-    HomeIcon
+    HomeIcon,
+    AddIcon
 }

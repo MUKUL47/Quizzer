@@ -1,0 +1,36 @@
+div{
+
+    .header-name-struct{
+        font-size: 20px;
+        padding: 0px 0px 20px 0px;
+    }
+
+    .form-field{
+        transition: box-shadow 2s;
+        padding: 7px;
+        background-color: #f3f3fa;
+        border-radius: 7px;
+        margin-bottom : 2%;
+    }
+    .no-question{
+        text-align: center;
+        padding: 20px;
+        color: #888;
+    }
+    .submit{
+        .MuiButtonBase-root{
+            width: 100%;
+            border-radius: 5px;
+            text-transform: none;
+            padding: 10px;
+            font-size: 16px;
+        }
+    }
+    .add-icon-ques{
+        position: absolute;
+        z-index: 100;
+        padding: 11px;
+        color: #fff;
+        cursor: pointer;
+    }
+}
