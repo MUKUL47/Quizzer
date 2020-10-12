@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './questionlayout.scss'
 import {
-    Button, AddIcon, Dialog, TextField, InputAdornment, HelpIcon,
+    Button, AddIcon, Dialog, TextField, HelpIcon,
     CheckCircleIcon, CancelIcon, Tooltip
 } from '../../../../../../../shared/material-ui-modules';
 export default function QuestionLayout() {
+    const [question, setQuestion] = useState(false)
     return (
         <div>
             <div className="header-name-struct">Form Questions</div>
@@ -12,20 +13,27 @@ export default function QuestionLayout() {
             <div className="submit">
                 <div className="pos-relative">
                     <AddIcon className="add-icon-ques" />
-                    <Button variant="contained" color="primary">Add Question</Button>
+                    <Button variant="contained" color="primary" onClick={e => setQuestion(!question)}>Add Question</Button>
                 </div>
             </div>
-            <Question />
+            <Question
+                open={question}
+                close={(mcqData?: any) => {
+                    console.log(mcqData);
+                    setQuestion(false)
+                }} />
         </div>
     )
 }
 
-function Question() {
+function Question(props: any) {
     const [question, setQuestion] = useState('');
     const [choices, setChoices] = useState([]);
     const [choice, setChoice] = useState('');
+    const [allowMcq, setAllowMcq] = useState(true);
+    const [validateQuestion, setValidateQuestion] = useState({ question: false, choices: false, correctAnswer: false })
     const onChoiceEnter = (e: any): void => {
-        if (e.keyCode !== 13 || e.keyCode === 13 && choice.trim().length === 0) return;
+        if (e.keyCode !== 13 || (e.keyCode === 13 && choice.trim().length === 0)) return;
         if (choices.find(c => c['c'] === choice.trim())) return;
         let prevChoices: any | any[] = [...choices];
         prevChoices.push({ c: choice.trim(), correct: false, edit: false, editedValue: choice.trim() });
@@ -43,10 +51,7 @@ function Question() {
     }
     const correctChoice = (index: number): void => {
         const prevChoices: any | any[] = [...choices];
-        prevChoices.forEach((p: { correct: boolean }, i: number) => {
-            p['correct'] = false;
-            p['correct'] = i === index;
-        })
+        prevChoices[index]['correct'] = !prevChoices[index]['correct']
         setChoices(prevChoices);
     }
     const onEditChange = (index: number, value: string, isSubmit?: boolean, isEnter?: boolean): void => {
@@ -61,31 +66,52 @@ function Question() {
         }
         setChoices(prevChoices);
     }
-
     const onEnableEdit = (index: number): void => {
         const prevChoices: any | any[] = [...choices];
         prevChoices[index]['edit'] = true;
         setChoices(prevChoices);
     }
+    useEffect(() => setValidateQuestion({ ...validateQuestion, question: question.trim().length > 0 }), [question])
+    useEffect(() => {
+        setValidateQuestion({ ...validateQuestion, correctAnswer: choices.find(choice => choice['correct'] === true) ? true : false, choices: choices.length > 1 })
+    }, [choices])
+    useEffect(() => setAllowMcq(!(validateQuestion.choices && validateQuestion.correctAnswer && validateQuestion.question)), [validateQuestion])
+    const returnData = (isData?: boolean): void => {
+        if (!isData) {
+            const isData = validateQuestion.choices || validateQuestion.correctAnswer || validateQuestion.question;
+            if (isData) {
+                if (window.confirm('Are you sure, all changes will be lost')) {
+                    props.close();
+                    resetForm()
+                }
+                return;
+            }
+            props.close()
+            return;
+        }
+        props.close({ question: question, choices: choices });
+        resetForm()
+    }
+    const resetForm = (): void => {
+        setQuestion('');
+        setChoices([]);
+        setChoice('');
+    }
     return (
-        <Dialog style={{ width: '100%' }} open={true}>
+        <Dialog style={{ width: '100%' }} open={props.open}>
             <div className="question-dialog">
+                <div className="mcq">Multiple Choice Question</div>
+                <div className="cancel-icon" onClick={e => returnData()}><CancelIcon /></div>
                 <div className="form-field main-question">
                     <TextField
                         id="standard-basic"
                         className="input-width-100"
                         placeholder="What is the capital of India ?"
-                        label="Enter Question"
+                        label="Enter Question *"
                         value={question}
                         onChange={e => setQuestion(e.target.value)}
-                        InputProps={{
-                            startAdornment: (
-                                < InputAdornment position="start" >
-                                    <HelpIcon className="text-icon question-icon" />
-                                </InputAdornment>
-                            )
-                        }}
                     />
+                    <HelpIcon className="text-icon question-icon" />
                 </div>
                 <div className="choices">
                     {
@@ -149,7 +175,12 @@ function Question() {
                 <div className="submit">
                     <div className="pos-relative">
                         <AddIcon className="add-icon-ques" />
-                        <Button variant="contained" color="primary" disabled={true}>Add</Button>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            disabled={allowMcq}
+                            onClick={e => returnData(true)}
+                        >Add</Button>
                     </div>
                 </div>
             </div>

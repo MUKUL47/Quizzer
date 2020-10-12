@@ -35,11 +35,10 @@ div{
 
     //question
     .question-dialog{
+        position: relative;
         padding: 10px;
+        width: 62vh;
     }
-    .MuiPaper-root{
-        width: 100% !important;
-    }//change later
     //question-end
 
     .question-icon{
@@ -48,12 +47,35 @@ div{
         right: 0;
     }
     .main-question{
-                    border: .2px solid lightgrey;
+        border: .2px solid lightgrey;
+        position: relative;
+        .MuiSvgIcon-root{
+            position: absolute;
+            top: 0;
+            right: 4px;
+        }
+    }
+    .cancel-icon{
+        position: relative;
+        z-index: 1;
+        position: absolute;
+        z-index: 1;
+        top: 5px;
+        cursor: pointer;
+        right: 5px;
+        .MuiSvgIcon-root{
+            width: 20px;
+        }
+    }
+    .mcq{
+        color: #261e96;
+        padding: 10px 0px;
+        font-size: 20px;
     }
     //choices-tab
     .choices{
-            max-height: 295px;
-            overflow: auto;
+            // max-height: 295px;
+            // overflow: auto;
 
             .tab{
                 margin-bottom: 7.5px;
@@ -133,4 +155,12 @@ div{
 .correct-text-bold{
     font-weight: bold;
 }
-//extras end
+//extras 
+
+//mobile
+
+@media only screen and (max-width: 600px) {
+    .question-dialog{
+        width: 38vh !important; 
+    }
+}
