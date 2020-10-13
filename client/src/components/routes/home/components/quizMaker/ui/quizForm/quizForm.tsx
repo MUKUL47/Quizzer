@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './quizForm.scss'
 import {
     TextField,
@@ -12,10 +12,12 @@ import {
     AccessAlarmIcon,
     Button
 } from '../../../../../../../shared/material-ui-modules';
+import Utils from '../../../../../../../shared/utils';
 export default function QuizForm() {
-    // const time = `${new Date()}`.split(' ');
-    // const month = 
-    // const [quizStartTime, setQuizStartTime] = useState()
+
+    const [quizStartTime, setQuizTime] = useState(Utils.getDateMaterialFormat())
+    const [quizEndTime, setQuizEndTime] = useState(Utils.getDateMaterialFormat(new Date(new Date().getTime() + (60 * 60 * 1000))))
+    console.log('2017-05-24T10:30', quizStartTime)
     return (
         <div>
             <div className="header-name-struct">Form Structure</div>
@@ -108,9 +110,10 @@ export default function QuizForm() {
                 <div className="name form-field start-end-time sub">
                     <div className="start">
                         <TextField
+                            onChange={e => setQuizTime(e.target.value)}
                             label="Quiz start time *"
                             type="datetime-local"
-                            defaultValue="2017-05-24T10:30"
+                            defaultValue={quizStartTime}
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -120,10 +123,10 @@ export default function QuizForm() {
                 <div className="name form-field start-end-time">
                     <div className="end end-time">
                         <TextField
-                            onChange={e => console.log(e, e.target.value)}
+                            onChange={e => setQuizEndTime(e.target.value)}
                             label="Quiz expiry time"
                             type="datetime-local"
-                            defaultValue="2017-05-24T10:30"
+                            defaultValue={quizEndTime}
                             InputLabelProps={{
                                 shrink: true,
                             }}

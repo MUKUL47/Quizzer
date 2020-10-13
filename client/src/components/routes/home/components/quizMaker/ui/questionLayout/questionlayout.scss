@@ -1,7 +1,11 @@
 div{
     .header-name-struct{
         font-size: 20px;
-        padding: 0px 0px 20px 0px;
+    }
+    .info-drag{
+        opacity: .7 5;
+        font-size: 12px;
+        padding: 5px 0px 20px 0px;
     }
 
     .form-field{
@@ -10,6 +14,47 @@ div{
         background-color: #f3f3fa;
         border-radius: 5px;
         margin-bottom : 2%;
+    }
+    .border-b:hover{
+        background:#cef6e2;
+        // transition: background-color .1s ease-out;
+        box-shadow: 2px 5px 5px #888888;
+    }
+    .ondrag-b{
+        border-top: 4px solid #739fb9;
+    }
+    .border-b{
+        position: relative;
+        border: .2px solid lightgray;
+
+        .question-t{
+            padding: 10px;
+
+            #sl-no{
+                opacity: .5;
+            }
+
+            #t{
+                // pointer-events: none;
+                cursor: pointer;
+            }
+        }
+
+        .q-info{
+            .MuiSvgIcon-root{
+                cursor: pointer;
+                position: absolute;
+                top: 1.5vh;
+                right: 2.5vh;
+                width: 16.5px;
+                color: red;
+            }
+        }      
+    }
+    .quiz-btn{
+        .MuiButtonBase-root{
+            background-color: #00a5fe;
+        }
     }
     .no-question{
         text-align: center;

@@ -27,6 +27,9 @@ code {
 .input-width-90{
   width: 90% !important;
 }
+.padding-down-10p{
+  padding-bottom: 10px;
+}
 .float-right{
   float: right;
 }
