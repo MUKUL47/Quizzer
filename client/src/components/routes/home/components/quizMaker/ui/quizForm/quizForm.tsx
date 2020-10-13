@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './quizForm.scss'
 import {
     TextField,
@@ -13,11 +13,15 @@ import {
     Button
 } from '../../../../../../../shared/material-ui-modules';
 import Utils from '../../../../../../../shared/utils';
-export default function QuizForm() {
+import QuizStructure from '../../../../../../../shared/stateclass/quizStucture';
+function formSetter() {
 
-    const [quizStartTime, setQuizTime] = useState(Utils.getDateMaterialFormat())
-    const [quizEndTime, setQuizEndTime] = useState(Utils.getDateMaterialFormat(new Date(new Date().getTime() + (60 * 60 * 1000))))
-    console.log('2017-05-24T10:30', quizStartTime)
+}
+export default function QuizForm(props: any) {
+    const quizStructure = new QuizStructure(2, Utils.getDateMaterialFormat(), Utils.getDateMaterialFormat(new Date(new Date().getTime() + (60 * 60 * 1000))))
+    const [form, setForm] = useState({ q: quizStructure });
+    const [formValidated, setFormValidated] = useState(false);
+    useEffect(() => setFormValidated(form.q.validateForm()), [form])
     return (
         <div>
             <div className="header-name-struct">Form Structure</div>
@@ -30,6 +34,8 @@ export default function QuizForm() {
                     id="standard-basic"
                     className="input-width-100"
                     placeholder="John Doe"
+                    onChange={e => setForm({ q: form.q.nameGS(e.target.value) })}
+                    // value={form.q.nameGS()}
                     InputProps={{
                         startAdornment: (
                             < InputAdornment position="start" >
@@ -47,6 +53,8 @@ export default function QuizForm() {
                 <TextField
                     id="standard-basic"
                     className="input-width-100"
+                    onChange={e => setForm({ q: form.q.quizTitleGS(e.target.value) })}
+                    value={form.q.quizTitleGS()}
                     placeholder="General knowledge quiz..."
                     InputProps={{
                         startAdornment: (
@@ -64,6 +72,8 @@ export default function QuizForm() {
                 </div>
                 <TextField
                     id="standard-basic"
+                    onChange={e => setForm({ q: form.q.emailGS(e.target.value) })}
+                    value={form.q.emailGS()}
                     className="input-width-100"
                     placeholder="johndoe@gmail.com"
                     InputProps={{
@@ -79,7 +89,7 @@ export default function QuizForm() {
             <div className="sub-dur">
                 <div className="name form-field sub">
                     <div className="form-text subscribe">
-                        <Checkbox color="primary" />
+                        <Checkbox color="primary" checked={form.q.subscribeGS()} onChange={e => { setForm({ q: form.q.subscribeGS(true, !form.q.subscribeGS()) }) }} />
                         <span className="text-color">Subscribe to students results.</span>
                         {help("You will recieve notifications on your email")}
                     </div>
@@ -93,6 +103,8 @@ export default function QuizForm() {
                     <TextField
                         id="standard-basic"
                         type="number"
+                        onChange={e => setForm({ q: form.q.durationGS(e.target.value) })}
+                        value={form.q.durationGS()}
                         className="input-width-100"
                         placeholder="5 (Minutes)"
                         InputProps={{
@@ -110,10 +122,10 @@ export default function QuizForm() {
                 <div className="name form-field start-end-time sub">
                     <div className="start">
                         <TextField
-                            onChange={e => setQuizTime(e.target.value)}
+                            onChange={e => setForm({ q: form.q.quizStartTimeGS(e.target.value) })}
                             label="Quiz start time *"
                             type="datetime-local"
-                            defaultValue={quizStartTime}
+                            defaultValue={form.q.quizStartTimeGS()}
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -123,10 +135,10 @@ export default function QuizForm() {
                 <div className="name form-field start-end-time">
                     <div className="end end-time">
                         <TextField
-                            onChange={e => setQuizEndTime(e.target.value)}
+                            onChange={e => setForm({ q: form.q.quizEndTimeGS(e.target.value) })}
                             label="Quiz expiry time"
                             type="datetime-local"
-                            defaultValue={quizEndTime}
+                            defaultValue={form.q.quizEndTimeGS()}
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -137,7 +149,13 @@ export default function QuizForm() {
 
 
             <div className="submit">
-                <Button variant="contained" color="primary">Prepare Questions</Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    disabled={!formValidated}
+                    onClick={e => props.goToQuestion(form.q.getForm())}
+                >Prepare Questions
+                </Button>
             </div>
 
         </div>

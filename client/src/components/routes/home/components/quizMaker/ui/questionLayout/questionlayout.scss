@@ -9,7 +9,7 @@ div{
     }
 
     .form-field{
-        transition: box-shadow 2s;
+        // transition: box-shadow 2s;
         padding: 7px;
         background-color: #f3f3fa;
         border-radius: 5px;
@@ -149,7 +149,7 @@ div{
                     background: #c0eebc;
                 }
 
-               .form-field:hover{
+               .border-b:hover{
                     background: #ced4f6;
                     transition: background-color .5s ease-out;
                 }
