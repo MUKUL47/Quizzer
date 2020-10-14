@@ -7,14 +7,12 @@ export const QuestionDataContext = (props: any) => {
     const [mcq, setMcq]: any = useState(mcqObj)//questions tab
     const [question, setQuestion]: any = useState(questionObj)//question
     const sMcq = (mcqObj: questionModel): void => {
-        const exist: number[] = mcq.filter((q: questionModel, i: number) => {
-            if (q.id === mcqObj.id) return i;
-        }).map((a: any) => a);
-        if (exist[0]) {
-            updateMcq(mcqObj, exist[0])
-        } else {
-            setMcq([...mcq, mcqObj])
+        const exist: number = mcq.findIndex((q: questionModel) => q.id === mcqObj.id);
+        if (exist > -1) {
+            updateMcq(mcqObj, exist)
+            return
         }
+        setMcq([...mcq, mcqObj])
     }
     const dMcq = (index: number): void => {
         const questionsClone: questionModel[] = mcq;

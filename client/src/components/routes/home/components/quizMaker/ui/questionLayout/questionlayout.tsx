@@ -25,7 +25,7 @@ export default function QuestionLayout(props: any) {
     }
     const addData = (questionObj?: questionModel): void => {
         setQuestionReady(false)
-        if (questionObj) questionContext.mcq.set(questionObj)
+        if (questionObj && questionObj.id) questionContext.mcq.set(questionObj)
     }
     useEffect(() => setQuestion(questionContext.mcq.get), [questionContext.mcq.get])
     useEffect(() => {

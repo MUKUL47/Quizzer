@@ -2,6 +2,7 @@
 import { QuestionContext } from '../questionContextService';
 import { choice, validateQuestion, QuestionDataContextValue, questionModel } from '../../../../../../../../shared/oop/models';
 import React, { useState, useEffect, useContext } from 'react';
+import QuestionModelData from '../../../../../../../../shared/oop/questionModel';
 import '../questionlayout.scss'
 import {
     Button, AddIcon, Dialog, TextField, HelpIcon,
@@ -9,115 +10,59 @@ import {
 } from '../../../../../../../../shared/material-ui-modules';;
 export default function Question(props: any) {
     const questionContext: QuestionDataContextValue | any = useContext(QuestionContext);
-    const choicesObj: choice[] = [];
-    const validateQuestionObj: validateQuestion = { question: false, choices: false, correctAnswer: false };
-    const [choices, setChoices] = useState(choicesObj);
-    const [question, setQuestion] = useState('');
-    const [choice, setChoice] = useState('');
-    const [allowMcq, setAllowMcq] = useState(true);
-    const [validateQuestion, setValidateQuestion] = useState(validateQuestionObj)
-    const [id, setId] = useState(null)
-    const onChoiceEnter = (e: any): void => {
-        if (e.keyCode !== 13 || (e.keyCode === 13 && choice.trim().length === 0)) return;
-        if (choices.find(c => c['c'] === choice.trim())) return;
-        let prevChoices: choice[] = [...choices];
-        prevChoices.push({ c: choice.trim(), correct: false, edit: false, editedValue: choice.trim() });
-        setChoices(prevChoices);
-        setChoice('');
-        let doc: any = document;
-        setTimeout(() => doc.querySelector('.choices').scrollTop = doc.querySelector('.choices').scrollHeight, 100)
-    }
-    const deleteChoice = (index: number): void => {
-        const prevChoices: choice[] = [...choices];
-        prevChoices.splice(index, 1);
-        setChoices(prevChoices);
-    }
-    const correctChoice = (index: number): void => {
-        const prevChoices: choice[] = [...choices];
-        prevChoices[index]['correct'] = !prevChoices[index]['correct']
-        setChoices(prevChoices);
-    }
-    const onEditChange = (index: number, value: string, isSubmit?: boolean, isEnter?: boolean): void => {
-        if (isSubmit && !isEnter) return;
-        const prevChoices: choice[] | any = [...choices];
-        let prevC = prevChoices[index];
-        if (!isSubmit) {
-            prevC['editedValue'] = value;
-        } else {
-            prevC['c'] = prevC['editedValue'].trim().length > 0 ? prevC['editedValue'].trim() : prevC['c'];
-            prevC['edit'] = false;
-        }
-        setChoices(prevChoices);
-    }
-    const onEnableEdit = (index: number): void => {
-        const prevChoices: choice[] = [...choices];
-        prevChoices[index]['edit'] = true;
-        setChoices(prevChoices);
-    }
-    useEffect(() => {
-        const questionFromMain: questionModel = questionContext.question.get;
-        if (questionFromMain.question) {
-            setChoices([...questionFromMain.choices]);
-            setQuestion(questionFromMain.question);
-            setId(questionFromMain.id);
-        }
-    }, [questionContext.question.get])
-    useEffect(() => setValidateQuestion({ ...validateQuestion, question: question.trim().length > 0 }), [question])
-    useEffect(() => {
-        setValidateQuestion({ ...validateQuestion, correctAnswer: choices.find(choice => choice['correct'] === true) ? true : false, choices: choices.length > 1 })
-    }, [choices])
-    useEffect(() => setAllowMcq(!(validateQuestion.choices && validateQuestion.correctAnswer && validateQuestion.question)), [validateQuestion])
-    const returnData = (isData?: boolean): void => {
-        if (!isData) {
-            const isData = validateQuestion.choices || validateQuestion.correctAnswer || validateQuestion.question;
-            if (isData) {
-                if (window.confirm('Are you sure, all changes will be lost')) {
-                    props.close();
-                    resetForm()
-                }
+    const questionModelData = new QuestionModelData();
+    const [form, setForm] = useState({ q: questionModelData });
+    const returnData = (isClose?: boolean): void => {
+        if (isClose && form.q.isDataAvailable()) {
+            if (window.confirm('Are you sure, all changes will be lost')) {
+                props.close();
+                setForm({ q: new QuestionModelData() })
                 return;
             }
-            props.close()
             return;
         }
-        props.close({ question: question, choices: choices, id: new Date().valueOf() });
-        resetForm()
+        if (!form.q.isDataAvailable() || !form.q.getId()) {
+            setForm({ q: form.q.setId(new Date().valueOf()) })
+        }
+        props.close({ ...form.q });
+        setForm({ q: new QuestionModelData() })
     }
-    const resetForm = (): void => {
-        setQuestion('');
-        setChoices([]);
-        setChoice('');
-    }
+    useEffect(() => {
+        const ref: questionModel = questionContext.question.get;
+        setForm({ q: new QuestionModelData(ref.question, ref.id, ref.choices, '') });
+    }, [questionContext.question.get])
     return (
         <Dialog style={{ width: '100%' }} open={props.open}>
             <div className="question-dialog">
                 <div className="mcq">Multiple Choice Question</div>
-                <div className="cancel-icon" onClick={e => returnData()}><CancelIcon /></div>
+                <div className="cancel-icon"
+                    onClick={e => returnData(true)}
+                ><CancelIcon /></div>
                 <div className="form-field main-question">
                     <TextField
                         id="standard-basic"
                         className="input-width-100"
                         placeholder="What is the capital of India ?"
                         label="Enter Question *"
-                        value={question}
-                        onChange={e => setQuestion(e.target.value)}
+                        onChange={e => setForm({ q: form.q.setQuestion(e.target.value) })}
+                        value={form.q.getQuestion()}
                     />
                     <HelpIcon className="text-icon question-icon" />
                 </div>
                 <div className="choices">
                     {
-                        choices.map((choice, cI) => {
+                        form.q.getChoices().map((choice: choice, cI: number) => {
                             return (
                                 <div className="tab" key={cI}>
                                     <div className={choice['correct'] ? 'form-field correct-tab-color' : 'form-field'}>
                                         {
-                                            !choice['edit'] ?
-                                                <div onDoubleClick={e => onEnableEdit(cI)}>
+                                            !choice.edit ?
+                                                <div onDoubleClick={e => setForm({ q: form.q.enableEdit(cI) })}>
                                                     <span className="choice-index">
                                                         {cI + 1}.
                                                     </span>
-                                                    <span className={choice['correct'] ? 'correct-text-bold' : ''}>
-                                                        {` ${choice['c']}`}
+                                                    <span className={choice.correct ? 'correct-text-bold' : ''}>
+                                                        {choice.c}
                                                     </span>
                                                 </div>
                                                 :
@@ -125,21 +70,21 @@ export default function Question(props: any) {
                                                     value={choice['editedValue']}
                                                     className="choice-edit"
                                                     placeholder={choice['c']}
-                                                    onKeyDown={e => onEditChange(cI, '', true, e.keyCode === 13)}
-                                                    onChange={e => onEditChange(cI, e.target.value)}
-                                                    onDoubleClick={e => onEditChange(cI, '', true, true)}
+                                                    onKeyDown={e => setForm({ q: form.q.onEditChange(cI, '', true, e.keyCode === 13) })}
+                                                    onChange={e => setForm({ q: form.q.onEditChange(cI, e.target.value) })}
+                                                    onDoubleClick={e => setForm({ q: form.q.onEditChange(cI, '', true, true) })}
                                                 />
                                         }
                                     </div>
                                     {
-                                        !choice['edit'] ?
+                                        !choice.edit ?
                                             <Tooltip title="Correct choice" placement="left" arrow>
-                                                <CheckCircleIcon className="choice correct" onClick={e => correctChoice(cI)} />
+                                                <CheckCircleIcon className="choice correct" onClick={e => setForm({ q: form.q.toggleCorrectChoice(cI) })} />
                                             </Tooltip> :
                                             null
                                     }
                                     <Tooltip title="Remove choice" placement="left" arrow>
-                                        <CancelIcon className="choice cancel" onClick={e => deleteChoice(cI)} />
+                                        <CancelIcon className="choice cancel" onClick={e => setForm({ q: form.q.removeChoice(cI) })} />
                                     </Tooltip>
                                 </div>
                             )
@@ -147,7 +92,7 @@ export default function Question(props: any) {
                         )
                     }
                 </div>
-                <div className={choices.length > 0 ? 'choices-tab-inp' : 'choices-tab-inp margin-top-10'}>
+                <div className={form.q.getChoices().length > 0 ? 'choices-tab-inp' : 'choices-tab-inp margin-top-10'}>
                     <div className="choice-text">
                         <div className="form-field">
                             <TextField
@@ -155,9 +100,9 @@ export default function Question(props: any) {
                                 className="input-width-100"
                                 placeholder="Choice"
                                 label="Enter Choice"
-                                onChange={e => setChoice(e.target.value)}
-                                value={choice}
-                                onKeyDown={onChoiceEnter}
+                                onChange={e => setForm({ q: form.q.setActiveChoice(e.target.value) })}
+                                value={form.q.getActiveChoice()}
+                                onKeyDown={e => setForm({ q: form.q.onChoiceEnter(e) })}
                             />
                         </div>
                     </div>
@@ -169,8 +114,8 @@ export default function Question(props: any) {
                         <Button
                             variant="contained"
                             color="primary"
-                            disabled={allowMcq}
-                            onClick={e => returnData(true)}
+                            disabled={!form.q.validateQuestionModel()}
+                            onClick={e => returnData()}
                         >Add</Button>
                     </div>
                 </div>
