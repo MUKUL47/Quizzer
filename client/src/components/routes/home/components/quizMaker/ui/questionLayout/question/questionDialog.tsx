@@ -1,42 +1,41 @@
+import { choice, validateQuestion } from '../../../../../../../../shared/oop/models';
 import React, { useState, useEffect } from 'react';
 import '../questionlayout.scss'
 import {
     Button, AddIcon, Dialog, TextField, HelpIcon,
     CheckCircleIcon, CancelIcon, Tooltip
 } from '../../../../../../../../shared/material-ui-modules';;
-
-
 export default function Question(props: any) {
+    const choicesObj: choice[] = [];
+    const validateQuestionObj: validateQuestion = { question: false, choices: false, correctAnswer: false };
+    const [choices, setChoices] = useState(choicesObj);
     const [question, setQuestion] = useState('');
-    const [choices, setChoices] = useState([]);
     const [choice, setChoice] = useState('');
     const [allowMcq, setAllowMcq] = useState(true);
-    const [validateQuestion, setValidateQuestion] = useState({ question: false, choices: false, correctAnswer: false })
+    const [validateQuestion, setValidateQuestion] = useState(validateQuestionObj)
     const onChoiceEnter = (e: any): void => {
         if (e.keyCode !== 13 || (e.keyCode === 13 && choice.trim().length === 0)) return;
         if (choices.find(c => c['c'] === choice.trim())) return;
-        let prevChoices: any | any[] = [...choices];
+        let prevChoices: choice[] = [...choices];
         prevChoices.push({ c: choice.trim(), correct: false, edit: false, editedValue: choice.trim() });
         setChoices(prevChoices);
         setChoice('');
         let doc: any = document;
-        setTimeout(() => {
-            doc.querySelector('.choices').scrollTop = doc.querySelector('.choices').scrollHeight
-        }, 100)
+        setTimeout(() => doc.querySelector('.choices').scrollTop = doc.querySelector('.choices').scrollHeight, 100)
     }
     const deleteChoice = (index: number): void => {
-        const prevChoices: any | any[] = [...choices];
+        const prevChoices: choice[] = [...choices];
         prevChoices.splice(index, 1);
         setChoices(prevChoices);
     }
     const correctChoice = (index: number): void => {
-        const prevChoices: any | any[] = [...choices];
+        const prevChoices: choice[] = [...choices];
         prevChoices[index]['correct'] = !prevChoices[index]['correct']
         setChoices(prevChoices);
     }
     const onEditChange = (index: number, value: string, isSubmit?: boolean, isEnter?: boolean): void => {
         if (isSubmit && !isEnter) return;
-        const prevChoices: any | any[] = [...choices];
+        const prevChoices: choice[] | any = [...choices];
         let prevC = prevChoices[index];
         if (!isSubmit) {
             prevC['editedValue'] = value;
@@ -47,7 +46,7 @@ export default function Question(props: any) {
         setChoices(prevChoices);
     }
     const onEnableEdit = (index: number): void => {
-        const prevChoices: any | any[] = [...choices];
+        const prevChoices: choice[] = [...choices];
         prevChoices[index]['edit'] = true;
         setChoices(prevChoices);
     }

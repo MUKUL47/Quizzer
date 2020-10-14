@@ -1,25 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './questionlayout.scss'
 import {
     Button, AddIcon, DeleteIcon, ArrowBackIcon
 } from '../../../../../../../shared/material-ui-modules';
+import { QuestionDataContextValue, questionModel } from '../../../../../../../shared/oop/models';
 import Question from './question/questionDialog'
+import { QuestionContext } from './questionContextService';
 export default function QuestionLayout(props: any) {
-    const arr: any[] = []
-    const [question, setQuestion] = useState(arr)
+    const questionsArr: questionModel[] = []
+    const [question, setQuestion] = useState(questionsArr)
     const [dragHover, setDragHover] = useState(-1);
     const [dropDone, setDropDone] = useState(-1);
     const [questionReady, setQuestionReady] = useState(false);
-    const allowDrop = () => {
+    const questionContext: QuestionDataContextValue | any = useContext(QuestionContext);
+    const allowDrop = (): void => {
         if (dragHover === dropDone) return;
         const d: any = document.querySelector(`.ondrag-b-${dragHover}`);
         if (d) setTimeout(() => d['style']['border'] = 'none', 500);
-        const v1 = `${question[dragHover]}`;
-        const v2 = `${question[dropDone]}`;
+        const v1 = { ...question[dragHover] };
+        const v2 = { ...question[dropDone] };
         question[dropDone] = v1;
         question[dragHover] = v2;
         setQuestion([...question])
     }
+    const setMcq = (mcqObj: questionModel): void => questionContext.mcq.set(mcqObj)
+    useEffect(() => setQuestion(questionContext.mcq.get), [questionContext.mcq.get])
     useEffect(() => {
         const d: any = document.querySelector(`.ondrag-b-${dragHover}`);
         if (d) {
@@ -38,7 +43,7 @@ export default function QuestionLayout(props: any) {
         <div>
             <div className="header-name-struct">Form Questions</div>
             {
-                question.length > 0 ?
+                question.length > 1 ?
                     <div className='info-drag'>Drag questions to change order</div>
                     : null
             }
@@ -61,7 +66,7 @@ export default function QuestionLayout(props: any) {
                     >
                         <div className="question-t">
                             <span id='sl-no'>{i + 1}.  </span>
-                            <span id='t'>{q}</span>
+                            <span id='t'>{q.question}</span>
                         </div>
                         <div className="q-info" >
                             <DeleteIcon />
@@ -93,9 +98,10 @@ export default function QuestionLayout(props: any) {
             </div>
             <Question
                 open={questionReady}
-                close={(mcqData?: any) => {
-                    // console.log(mcqData);
+                close={(mcqData?: questionModel) => {
                     setQuestionReady(false)
+                    if (!mcqData) return;
+                    setMcq(mcqData);
                 }} />
         </div>
     )

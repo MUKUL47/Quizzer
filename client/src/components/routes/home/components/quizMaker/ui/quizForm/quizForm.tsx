@@ -13,10 +13,7 @@ import {
     Button
 } from '../../../../../../../shared/material-ui-modules';
 import Utils from '../../../../../../../shared/utils';
-import QuizStructure from '../../../../../../../shared/stateclass/quizStucture';
-function formSetter() {
-
-}
+import QuizStructure from '../../../../../../../shared/oop/quizStucture';
 export default function QuizForm(props: any) {
     const quizStructure = new QuizStructure(2, Utils.getDateMaterialFormat(), Utils.getDateMaterialFormat(new Date(new Date().getTime() + (60 * 60 * 1000))))
     const [form, setForm] = useState({ q: quizStructure });
@@ -35,7 +32,7 @@ export default function QuizForm(props: any) {
                     className="input-width-100"
                     placeholder="John Doe"
                     onChange={e => setForm({ q: form.q.nameGS(e.target.value) })}
-                    // value={form.q.nameGS()}
+                    value={form.q.nameGS()}
                     InputProps={{
                         startAdornment: (
                             < InputAdornment position="start" >
@@ -161,7 +158,6 @@ export default function QuizForm(props: any) {
         </div>
     )
 }
-
 function help(message: string) {
     return (
         <span className="help">
