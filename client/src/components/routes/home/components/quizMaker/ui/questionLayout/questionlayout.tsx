@@ -23,7 +23,10 @@ export default function QuestionLayout(props: any) {
         question[dragHover] = v2;
         setQuestion([...question])
     }
-    const setMcq = (mcqObj: questionModel): void => questionContext.mcq.set(mcqObj)
+    const addData = (questionObj?: questionModel): void => {
+        setQuestionReady(false)
+        if (questionObj) questionContext.mcq.set(questionObj)
+    }
     useEffect(() => setQuestion(questionContext.mcq.get), [questionContext.mcq.get])
     useEffect(() => {
         const d: any = document.querySelector(`.ondrag-b-${dragHover}`);
@@ -66,10 +69,13 @@ export default function QuestionLayout(props: any) {
                     >
                         <div className="question-t">
                             <span id='sl-no'>{i + 1}.  </span>
-                            <span id='t'>{q.question}</span>
+                            <span id='t' onDoubleClick={e => {
+                                questionContext.question.reloadQuestion({ ...question[i] });
+                                setQuestionReady(true)
+                            }}>{q.question}</span>
                         </div>
                         <div className="q-info" >
-                            <DeleteIcon />
+                            <DeleteIcon onClick={e => questionContext.mcq.delete(i)} />
                         </div>
                     </div>
                 ))}
@@ -98,11 +104,7 @@ export default function QuestionLayout(props: any) {
             </div>
             <Question
                 open={questionReady}
-                close={(mcqData?: questionModel) => {
-                    setQuestionReady(false)
-                    if (!mcqData) return;
-                    setMcq(mcqData);
-                }} />
+                close={addData} />
         </div>
     )
 }

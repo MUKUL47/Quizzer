@@ -6,8 +6,9 @@ export interface choice {
     editedValue?: string;
 }
 export interface questionModel {
-    question: String;
-    choices: choice[]
+    question: string;
+    choices: choice[];
+    id?: any;
 }
 export interface validateQuestion {
     question: boolean;
@@ -17,6 +18,15 @@ export interface validateQuestion {
 //
 //QuestionDataContext
 export interface QuestionDataContextValue {
-    mcq?: { get: questionModel, set: Function }
+    mcq?: {
+        get: questionModel,
+        set: Function,
+        delete: Function,
+        update: Function
+    };
+    question?: {
+        get: questionModel,
+        reloadQuestion: Function
+    }
 }
 //

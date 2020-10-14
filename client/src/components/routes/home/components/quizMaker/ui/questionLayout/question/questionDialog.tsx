@@ -1,11 +1,14 @@
-import { choice, validateQuestion } from '../../../../../../../../shared/oop/models';
-import React, { useState, useEffect } from 'react';
+
+import { QuestionContext } from '../questionContextService';
+import { choice, validateQuestion, QuestionDataContextValue, questionModel } from '../../../../../../../../shared/oop/models';
+import React, { useState, useEffect, useContext } from 'react';
 import '../questionlayout.scss'
 import {
     Button, AddIcon, Dialog, TextField, HelpIcon,
     CheckCircleIcon, CancelIcon, Tooltip
 } from '../../../../../../../../shared/material-ui-modules';;
 export default function Question(props: any) {
+    const questionContext: QuestionDataContextValue | any = useContext(QuestionContext);
     const choicesObj: choice[] = [];
     const validateQuestionObj: validateQuestion = { question: false, choices: false, correctAnswer: false };
     const [choices, setChoices] = useState(choicesObj);
@@ -13,6 +16,7 @@ export default function Question(props: any) {
     const [choice, setChoice] = useState('');
     const [allowMcq, setAllowMcq] = useState(true);
     const [validateQuestion, setValidateQuestion] = useState(validateQuestionObj)
+    const [id, setId] = useState(null)
     const onChoiceEnter = (e: any): void => {
         if (e.keyCode !== 13 || (e.keyCode === 13 && choice.trim().length === 0)) return;
         if (choices.find(c => c['c'] === choice.trim())) return;
@@ -50,6 +54,14 @@ export default function Question(props: any) {
         prevChoices[index]['edit'] = true;
         setChoices(prevChoices);
     }
+    useEffect(() => {
+        const questionFromMain: questionModel = questionContext.question.get;
+        if (questionFromMain.question) {
+            setChoices([...questionFromMain.choices]);
+            setQuestion(questionFromMain.question);
+            setId(questionFromMain.id);
+        }
+    }, [questionContext.question.get])
     useEffect(() => setValidateQuestion({ ...validateQuestion, question: question.trim().length > 0 }), [question])
     useEffect(() => {
         setValidateQuestion({ ...validateQuestion, correctAnswer: choices.find(choice => choice['correct'] === true) ? true : false, choices: choices.length > 1 })
@@ -68,7 +80,7 @@ export default function Question(props: any) {
             props.close()
             return;
         }
-        props.close({ question: question, choices: choices });
+        props.close({ question: question, choices: choices, id: new Date().valueOf() });
         resetForm()
     }
     const resetForm = (): void => {
