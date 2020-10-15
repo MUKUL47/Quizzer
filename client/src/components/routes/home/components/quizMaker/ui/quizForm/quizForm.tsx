@@ -13,7 +13,7 @@ import {
     Button
 } from '../../../../../../../shared/material-ui-modules';
 import Utils from '../../../../../../../shared/utils';
-import QuizStructure from '../../../../../../../shared/oop/quizStucture';
+import QuizStructure from '../../../../../../../shared/datamodels/quizStucture';
 export default function QuizForm(props: any) {
     const quizStructure = new QuizStructure(2, Utils.getDateMaterialFormat(), Utils.getDateMaterialFormat(new Date(new Date().getTime() + (60 * 60 * 1000))))
     const [form, setForm] = useState({ q: quizStructure });

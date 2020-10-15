@@ -30,3 +30,9 @@ export interface QuestionDataContextValue {
     }
 }
 //
+
+//quiz
+export interface QuizInstructions {
+    name: string;
+    rollNumber: string | number;
+}

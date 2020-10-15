@@ -22,6 +22,11 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import DeleteIcon from '@material-ui/icons/Delete';
+import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
+import HourglassFullIcon from '@material-ui/icons/HourglassFull';
+import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
+import FingerprintIcon from '@material-ui/icons/Fingerprint';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 export {
     Modal,
     HelpIcon,
@@ -46,5 +51,10 @@ export {
     CheckCircleIcon,
     CancelIcon,
     DeleteIcon,
-    ArrowBackIcon
+    ArrowBackIcon,
+    QueryBuilderIcon,
+    HourglassFullIcon,
+    HourglassEmptyIcon,
+    FingerprintIcon,
+    PlayArrowIcon
 }

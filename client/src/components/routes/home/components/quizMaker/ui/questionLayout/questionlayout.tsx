@@ -3,7 +3,7 @@ import './questionlayout.scss'
 import {
     Button, AddIcon, DeleteIcon, ArrowBackIcon
 } from '../../../../../../../shared/material-ui-modules';
-import { QuestionDataContextValue, questionModel } from '../../../../../../../shared/oop/models';
+import { QuestionDataContextValue, questionModel } from '../../../../../../../shared/datamodels/models';
 import Question from './question/questionDialog'
 import { QuestionContext } from './questionContextService';
 export default function QuestionLayout(props: any) {

@@ -1,8 +1,8 @@
 
 import { QuestionContext } from '../questionContextService';
-import { choice, validateQuestion, QuestionDataContextValue, questionModel } from '../../../../../../../../shared/oop/models';
+import { choice, validateQuestion, QuestionDataContextValue, questionModel } from '../../../../../../../../shared/datamodels/models';
 import React, { useState, useEffect, useContext } from 'react';
-import QuestionModelData from '../../../../../../../../shared/oop/questionModel';
+import QuestionModelData from '../../../../../../../../shared/datamodels/questionModel';
 import '../questionlayout.scss'
 import {
     Button, AddIcon, Dialog, TextField, HelpIcon,
