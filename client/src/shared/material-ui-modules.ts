@@ -27,6 +27,8 @@ import HourglassFullIcon from '@material-ui/icons/HourglassFull';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import DoneIcon from '@material-ui/icons/Done';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 export {
     Modal,
     HelpIcon,
@@ -56,5 +58,7 @@ export {
     HourglassFullIcon,
     HourglassEmptyIcon,
     FingerprintIcon,
-    PlayArrowIcon
+    PlayArrowIcon,
+    DoneIcon,
+    MeetingRoomIcon
 }

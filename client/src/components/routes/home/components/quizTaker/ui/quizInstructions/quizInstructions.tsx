@@ -75,7 +75,10 @@ export default function QuizInstructions() {
                         </div>
                     </div>
                     <div className="inst-submit">
-                        <Button>Start Quiz</Button>
+                        <Button disabled={!form.q.validate()}
+                            className={!form.q.validate() ? 'inst-dis' : ''}>
+                            Start Quiz
+                        </Button>
                         <div className="start-quiz-icon">
                             <PlayArrowIcon />
                         </div>
