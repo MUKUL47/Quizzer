@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './quiz.scss'
 import Header from './header/header';
+import Question from './question/question';
 export default function Quiz() {
     return (
         <div className="quiz-layout">
@@ -9,7 +10,7 @@ export default function Quiz() {
                     <Header />
                 </div>
                 <div className="quiz_ques-quesTab">
-                    <div className="quiz-ques">questions</div>
+                    <div className="quiz-ques"><Question /></div>
                     <div className="quiz-quesTab">questions-tab</div>
                 </div>
             </div>

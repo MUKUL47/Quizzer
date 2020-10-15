@@ -1,0 +1,107 @@
+.Question-lay{
+    padding: 10px 10px;
+
+    .question-text{
+        background: #bbe3bf;
+        padding: 3vh 10px;
+        font-size: 18px;
+        border-radius: 10px;
+        margin-top: 2%;
+        border: 1px solid #a7c47a;
+        max-height: 20vh;
+        overflow: auto;
+        scroll-behavior: smooth;
+        // margin-bottom: 50px;
+    }
+
+    .question-no-head{
+        display: flex;
+        color: #3192ad;
+        font-size: 20px;
+
+        .question-no{
+            width: 50%;
+            float: left;
+        }
+
+        .q-choices{
+            width: 50%;
+            float: right;
+            text-align: end;
+        }
+    }
+
+    .question-tab-choices{
+        overflow: auto;
+        max-height: 28vh;
+        background: #bbe3bf;
+        
+        .question-choices-mcq{
+            display: flex;
+            text-align: center;
+            padding: 10px; 
+            font-weight: bold;
+            font-size: 17px;
+            color : #323847;
+            margin-bottom: 1%;
+
+            .question-choices-left{
+                float: left;
+                margin-right: 2.5%;
+            }
+            
+            .question-choices-right{
+                float: right;
+                margin-left: 2.5%;
+            }
+            
+            .choice-tab{
+                width: 47.5%;
+                padding: 15px;
+                background: #fff;
+                border-radius: 7.5px;
+                cursor: pointer;
+            }
+
+            .choice-tab-l-44.5{
+                width: 44.5% !important;
+            }
+
+            .choice-tab:hover{
+                background-color: #4e6579;
+                color: #fff;
+            }
+        }
+        .q-m-t{
+            margin-top: 1.5%;
+        }
+    }
+
+    .quiz-done-skip{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        text-align: end;
+        padding: 20px;
+
+        Button{
+            font-size: 16px;
+            font-weight: bold;
+            padding: 5px 25px 5px 25px;
+        }
+        .quiz-done{
+            margin-right: 10px;
+            background: #240670;
+            color: #fff;
+        }
+    }
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #deffad; 
+}
+::-webkit-scrollbar-thumb {
+  background: #000000; 
+}
