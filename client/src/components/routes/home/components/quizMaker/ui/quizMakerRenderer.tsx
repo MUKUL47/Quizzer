@@ -7,7 +7,7 @@ import { QuestionDataContext } from './questionLayout/questionContextService';
 import { useHistory } from "react-router-dom";
 export default function QuizMakerLayout() {
     const history = useHistory();
-    const [toggleFormQuiz, setToggleFormQuiz] = useState({ type: 'questions' });
+    const [toggleFormQuiz, setToggleFormQuiz] = useState({ type: 'form' });
     const goToHome = (): void => {
         if (window.confirm('Are you sure, your changes will be lost.')) {
             history.push('/');
