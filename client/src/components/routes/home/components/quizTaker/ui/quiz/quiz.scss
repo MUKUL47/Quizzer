@@ -44,6 +44,12 @@
     .quiz_ques-quesTab{
         height: calc(100vh - 120px) !important;
     }
+    .quiz-ques{
+        width: 100% !important;
+    }
+    .quiz-quesTab{
+        display: none !important;
+    }
 }
     
 //
