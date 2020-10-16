@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Checkbox } from '../../../../../../../../shared/material-ui-modules'
-import './question.scss'
+import './question.scss';
+import { QuizContext } from '../quizContextService';
+import { QuizContextModel } from '../../../../../../../../shared/datamodels/models';
 const ques = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
 const choices = Array(4).fill(1).map((v, i) => `is simply text of t Ipsum is simply dummy text of t ${i}`)
-export default function Question() {
+export default function Question(props: any) {
+    const quizContext: QuizContextModel | any = useContext(QuizContext);
+    const formG = quizContext.quizForm.get;
+    const formS = quizContext.quizForm.set;
     return (
         <div className="Question-lay">
             <div className="question-no-head">
@@ -32,7 +37,7 @@ export default function Question() {
         </div>
     )
 }
-function RenderChoices() {
+function RenderChoices(prosp: any) {
     let cc = [];
     for (let i = 0; i < choices.length && choices[i]; i++) {
         if (i % 2 === 0) {
@@ -43,7 +48,7 @@ function RenderChoices() {
                         <span className="correct-c">
                             <Checkbox />
                         </span>
-                        <span className="correct-cc">
+                        <span className="correct-cc" >
                             {choices[i]}
                         </span>
                     </div>

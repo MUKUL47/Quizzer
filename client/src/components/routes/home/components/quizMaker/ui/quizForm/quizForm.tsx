@@ -15,6 +15,7 @@ import {
 import Utils from '../../../../../../../shared/utils';
 import QuizStructure from '../../../../../../../shared/datamodels/quizStucture';
 export default function QuizForm(props: any) {
+    document.title = 'Quiz Structure'
     const quizStructure = new QuizStructure(2, Utils.getDateMaterialFormat(), Utils.getDateMaterialFormat(new Date(new Date().getTime() + (60 * 60 * 1000))))
     const [form, setForm] = useState({ q: quizStructure });
     const [formValidated, setFormValidated] = useState(false);

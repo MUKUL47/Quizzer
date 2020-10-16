@@ -5,12 +5,12 @@
 
     .quiz-remaining-time{
         float: left;       
-        width: 50%;
-        padding: 5px;
+        width: 75%;
+        padding: 10px 5px 5px 5px;
 
         #rem-time{
             color: #8278bf;
-            font-size: 18px;
+            font-size: 15px;
         }
 
         #rem-min{
@@ -30,7 +30,7 @@
     .quiz-submit-abandon{
         float: right;
         text-align: end;
-        width: 50%;
+        width: 25%;
 
         .quiz-btn{
             position: relative;
@@ -54,6 +54,9 @@
 @media only screen and (max-width: 600px) {
     button{
         width: auto !important;
+    }
+    .quiz-remaining-time{
+        font-size: 12.75px !important;
     }
 }
 //

@@ -36,3 +36,22 @@ export interface QuizInstructions {
     name: string;
     rollNumber: string | number;
 }
+
+
+//running quiz model
+export interface runningQuizQuestions {
+    question: string,
+    choices: { choice: string, selected: boolean }[]
+}
+export interface RunningQuiz {
+    totalQuestions: number;
+    activeQuestion: number;
+    skippedQuestions: number[];
+    questions: runningQuizQuestions[];
+}
+export interface QuizContextModel {
+    quizForm: {
+        get: any,
+        set: Function
+    }
+}

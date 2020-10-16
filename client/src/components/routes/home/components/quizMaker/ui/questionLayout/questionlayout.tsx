@@ -7,6 +7,7 @@ import { QuestionDataContextValue, questionModel } from '../../../../../../../sh
 import Question from './question/questionDialog'
 import { QuestionContext } from './questionContextService';
 export default function QuestionLayout(props: any) {
+    document.title = 'Quiz Question'
     const questionsArr: questionModel[] = []
     const [question, setQuestion] = useState(questionsArr)
     const [dragHover, setDragHover] = useState(-1);

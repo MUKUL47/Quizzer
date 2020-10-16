@@ -104,12 +104,18 @@
         }
 
         .ques-b-skip{
+            // border: 3px solid;
             font-weight: bold;
             width: 50%;
             padding: 10px;
             float: right;
             margin: auto;
             background-color: transparent;
+        }
+        .ques-b-skip:hover{
+            border: none;
+            background-color: #fff;
+            padding: 10px;
         }
     }
 }
