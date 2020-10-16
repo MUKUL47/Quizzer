@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button, QueryBuilderIcon } from '../../../../../../../../shared/material-ui-modules'
+import { Button, Checkbox } from '../../../../../../../../shared/material-ui-modules'
 import './question.scss'
 const ques = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
-const choices = Array(7).fill(1).map((v, i) => `choice ${i}`)
+const choices = Array(4).fill(1).map((v, i) => `is simply text of t Ipsum is simply dummy text of t ${i}`)
 export default function Question() {
     return (
         <div className="Question-lay">
@@ -12,7 +12,7 @@ export default function Question() {
                 </div>
             </div>
             <div className="question-text">
-                {ques}{ques}{ques}{ques}{ques}
+                {ques}
             </div>
 
             <div className="question-no-head">
@@ -39,13 +39,23 @@ function RenderChoices() {
             const onlyOne: boolean = choices[i + 1] ? true : false;
             cc.push(
                 <div className="question-choices-mcq q-m-t">
-                    <div className='question-choices-left choice-tab' style={!onlyOne ? { width: '44.5%' } : {}}>
-                        {choices[i]}
+                    <div className='question-choices-left choice-tab' style={!onlyOne ? { width: '47%' } : {}}>
+                        <span className="correct-c">
+                            <Checkbox />
+                        </span>
+                        <span className="correct-cc">
+                            {choices[i]}
+                        </span>
                     </div>
                     {
                         onlyOne ?
                             <div className="question-choices-right choice-tab">
-                                {choices[i + 1]}
+                                <span className="correct-c">
+                                    <Checkbox />
+                                </span>
+                                <span className="correct-cc">
+                                    {choices[i + 1]}
+                                </span>
                             </div> :
                             null
                     }

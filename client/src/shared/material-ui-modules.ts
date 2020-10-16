@@ -29,6 +29,7 @@ import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import DoneIcon from '@material-ui/icons/Done';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import MapIcon from '@material-ui/icons/Map';
 export {
     Modal,
     HelpIcon,
@@ -60,5 +61,6 @@ export {
     FingerprintIcon,
     PlayArrowIcon,
     DoneIcon,
-    MeetingRoomIcon
+    MeetingRoomIcon,
+    MapIcon
 }

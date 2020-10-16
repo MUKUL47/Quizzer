@@ -7,7 +7,7 @@
         font-size: 18px;
         border-radius: 10px;
         margin-top: 2%;
-        border: 1px solid #a7c47a;
+        // border: 1px solid #a7c47a;
         max-height: 20vh;
         overflow: auto;
         scroll-behavior: smooth;
@@ -16,8 +16,9 @@
 
     .question-no-head{
         display: flex;
-        color: #3192ad;
+        color: #475a8f;
         font-size: 20px;
+        font-weight: 700;
 
         .question-no{
             width: 50%;
@@ -33,17 +34,20 @@
 
     .question-tab-choices{
         overflow: auto;
-        max-height: 28vh;
+        // max-height: 28vh;
+        max-height: calc(80vh - 260pt);
         background: #bbe3bf;
+        padding: 10px 10px;
+        border-radius: 10px;
         
         .question-choices-mcq{
             display: flex;
-            text-align: center;
+            // text-align: center;
             padding: 10px; 
             font-weight: bold;
             font-size: 17px;
             color : #323847;
-            margin-bottom: 1%;
+            // margin-bottom: 1%;
 
             .question-choices-left{
                 float: left;
@@ -57,10 +61,26 @@
             
             .choice-tab{
                 width: 47.5%;
-                padding: 15px;
+                padding: 2.5px;
                 background: #fff;
                 border-radius: 7.5px;
                 cursor: pointer;
+                display: flex;
+
+                .MuiIconButton-label{
+                    color : #000 !important;
+                }
+
+                .correct-c{
+                    padding-right: 20px;
+                    width: 15px;
+                    margin: auto;
+                }
+                .correct-cc{
+                    padding: 10px;
+                    font-size: 15px;
+                    width: 90%;
+                }
             }
 
             .choice-tab-l-44.5{
@@ -70,10 +90,14 @@
             .choice-tab:hover{
                 background-color: #4e6579;
                 color: #fff;
+
+                .MuiIconButton-label{
+                    color : #fff !important;
+                }
             }
         }
         .q-m-t{
-            margin-top: 1.5%;
+            // margin-top: 1%;
         }
     }
 
