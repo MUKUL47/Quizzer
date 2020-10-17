@@ -1,7 +1,7 @@
 import { choice } from './models';
 export default class QuestionModelData {
     private question: string = '';
-    private id: number | null = null;
+    public id: number | null = null;
     private choices: choice[] = [];
     private activeChoice: string = '';
 

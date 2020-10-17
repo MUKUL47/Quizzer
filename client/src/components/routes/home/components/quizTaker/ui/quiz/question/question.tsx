@@ -44,7 +44,12 @@ export default function Question(props: any) {
                 >Next</Button>
                 <Button
                     className="quiz-skip quiz-ds-btn"
-                    onClick={e => formS({ f: formG.setflaggedQuestion(formG.activeQuestion) })}
+                    onClick={e => {
+                        if (formG.flaggedQuestion.length === 1) {
+                            contextTab.set(true)
+                        }
+                        formS({ f: formG.setflaggedQuestion(formG.activeQuestion) });
+                    }}
                 >{formG.flaggedQuestion.includes(formG.activeQuestion) ? 'Unflag' : 'Flag'}</Button>
             </div>
         </div>
@@ -60,12 +65,14 @@ function RenderChoices() {
         if (i % 2 === 0) {
             const onlyOne: boolean = choices[i + 1] ? true : false;
             cc.push(
-                <div className="question-choices-mcq q-m-t" key={Math.random()}>
-                    <div className='question-choices-left choice-tab' style={!onlyOne ? { width: '47%' } : {}}>
+                <div className="question-choices-mcq q-m-t" key={i}>
+                    <div className='question-choices-left choice-tab'
+                        onClick={e => formS({ f: formG.toggleQuestionChoice(i) })}
+                        style={!onlyOne ? { width: '47%' } : {}}>
                         <span className="correct-c">
                             <Checkbox
                                 checked={choices[i].selected}
-                                onChange={e => formS({ f: formG.toggleQuestionChoice(i) })} />
+                            />
                         </span>
                         <span className="correct-cc" >
                             {choices[i].choice}
@@ -73,14 +80,15 @@ function RenderChoices() {
                     </div>
                     {
                         onlyOne ?
-                            <div className="question-choices-right choice-tab">
+                            <div className="question-choices-right choice-tab" onClick={e => formS({ f: formG.toggleQuestionChoice(i + 1) })}>
                                 <span className="correct-c">
                                     <Checkbox
                                         checked={choices[i + 1].selected}
-                                        onChange={e => formS({ f: formG.toggleQuestionChoice(i + 1) })}
                                     />
                                 </span>
-                                <span className="correct-cc" >
+                                <span
+                                    className="correct-cc"
+                                >
                                     {choices[i + 1].choice}
                                 </span>
                             </div> :

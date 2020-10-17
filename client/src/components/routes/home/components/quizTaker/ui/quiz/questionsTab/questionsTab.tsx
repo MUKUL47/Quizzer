@@ -14,7 +14,7 @@ export default function QuestionsTab(props: any) {
     return (
         <div className="ques-tab-lay">
             <div className="tab-head">
-                Total Questions
+                {contextTab.get ? 'Total Questions' : 'Flagged Questions'}
                 {/* <div className="tab-head-roadIcon">
                     <HelpIcon />
                 </div> */}

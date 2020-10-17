@@ -86,7 +86,6 @@ export default class QuizStructure {
             this.validator['quizEndTime'] &&
             this.validator['quizStartTime'] &&
             this.validator['quizTitle'] &&
-            this.validator['duration'] &&
-            this.validator['subscribe'];
+            this.validator['duration']
     }
 }

@@ -13,12 +13,16 @@ export default function Question(props: any) {
     const questionModelData = new QuestionModelData();
     const [form, setForm] = useState({ q: questionModelData });
     const returnData = (isClose?: boolean): void => {
-        if (isClose && form.q.isDataAvailable()) {
-            if (window.confirm('Are you sure, all changes will be lost')) {
-                props.close();
-                setForm({ q: new QuestionModelData() })
+        //what a mess :-3
+        if (isClose) {
+            if (form.q.isDataAvailable()) {
+                if (window.confirm('Are you sure, all changes will be lost')) {
+                    props.close();
+                    setForm({ q: new QuestionModelData() })
+                }
                 return;
             }
+            props.close();
             return;
         }
         if (!form.q.isDataAvailable() || !form.q.getId()) {
@@ -29,7 +33,8 @@ export default function Question(props: any) {
     }
     useEffect(() => {
         const ref: questionModel = questionContext.question.get;
-        setForm({ q: new QuestionModelData(ref.question, ref.id, ref.choices, '') });
+        const initForm = new QuestionModelData(ref.question, ref.id, ref.choices, '');
+        setForm({ q: initForm });
     }, [questionContext.question.get])
     return (
         <Dialog style={{ width: '100%' }} open={props.open}>

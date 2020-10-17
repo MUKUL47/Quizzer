@@ -13,7 +13,6 @@ export default function QuizInstructions(props: any) {
     const quizInstructionsModel = new QuizInstructionsModel('', '');
     const [form, setForm] = useState({ q: quizInstructionsModel });
     const [tnc, setTnc] = useState(false);
-    // const sss: any = { q: 5 };
     const [startsIn, setStartsIn] = useState(4001);
     const [expiresIn, setExpiresIn] = useState(3660001);
     const [remainingTimeIds, setRemainingTimeIds] = useState([1, 1]);
@@ -26,6 +25,7 @@ export default function QuizInstructions(props: any) {
     }, [startsIn])
     useEffect(() => {
         const id: any = setTimeout(() => setExpiresIn(expiresIn - 1), 1000)
+        setRemainingTimeIds([remainingTimeIds[0], id]);
         return () => {
             clearTimeout(remainingTimeIds[1])
         }

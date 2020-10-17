@@ -30,12 +30,9 @@ export default function Quiz() {
     const [remainingTimeId, setRemainingTimeId] = useState(-1);
     useEffect(() => {
         const id = setTimeout(() => setRemainingTime(remainingTime - 1), 1000);
-        return () => {
-            if (remainingTimeId) {
-                clearTimeout(remainingTimeId)
-            }
-        }
+        return () => clearTimeout(remainingTimeId)
     }, [remainingTime])
+
     const submitQuiz = (): void => {
     }
     return (
