@@ -2,7 +2,7 @@ import { runningQuizQuestions } from './models';
 export default class RunningQuizData {
     private totalQuestions: number;
     private activeQuestion: number = 0;
-    private skippedQuestions: number[] = [];
+    private flaggedQuestion: number[] = [3, 4, 5, 6, 7, 12, 22, 11];
     private questions: runningQuizQuestions[];
 
     constructor(questions: runningQuizQuestions[]) {
@@ -20,8 +20,8 @@ export default class RunningQuizData {
     public getActiveQuestion(): number {
         return this.activeQuestion;
     }
-    public getSkippedQuestions(): number[] {
-        return this.skippedQuestions;
+    public getflaggedQuestion(): number[] {
+        return this.flaggedQuestion;
     }
 
     //setters
@@ -35,14 +35,22 @@ export default class RunningQuizData {
         return this;
     }
     public setActiveQuestion(activeQuestion: number) {
+        if (!this.questions[activeQuestion]) return this;
         this.activeQuestion = activeQuestion;
         return this;
     }
-    public setSkippedQuestions(index: number) {
-        if (this.skippedQuestions.includes(index)) {
+    public setflaggedQuestion(index: number) {
+        if (this.flaggedQuestion.includes(index)) {
+            const idx = this.flaggedQuestion.findIndex(i => i === index);
+            this.flaggedQuestion.splice(idx, 1)
             return this;
         }
-        this.skippedQuestions.push(index);
+        this.flaggedQuestion.push(index)
         return this;
+    }
+    public toggleQuestionChoice(choiceIndex: number) {
+        this.questions[this.activeQuestion].choices[choiceIndex].selected = !this.questions[this.activeQuestion].choices[choiceIndex].selected;
+        return this;
+
     }
 }

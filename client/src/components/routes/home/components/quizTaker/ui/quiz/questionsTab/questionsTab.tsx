@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
-import { Button, HelpIcon } from '../../../../../../../../shared/material-ui-modules'
-import './questionsTab.scss'
+import React, { useState, useContext } from 'react';
+import { Button, HelpIcon } from '../../../../../../../../shared/material-ui-modules';
+import { QuizContextModel } from '../../../../../../../../shared/datamodels/models';
+import './questionsTab.scss';
+import { QuizContext } from '../quizContextService';
 const q = Array(22).fill(1);
 const activeQ = 1;
 const questionDone = [12, 13, 16];
 export default function QuestionsTab(props: any) {
+    const quizContext: QuizContextModel | any = useContext(QuizContext);
+    const contextTab = quizContext.questionTab;
     const [activeQuestion, setActiveQuestion] = useState(1);
     return (
         <div className="ques-tab-lay">
@@ -22,39 +26,63 @@ export default function QuestionsTab(props: any) {
                 />
             </div>
             <div className="ques-b-all-skip">
-                <Button className="ques-b-all">Show All</Button>
-                <Button className="ques-b-skip">Show Remaining</Button>
+                <Button
+                    className={contextTab.get ? 'ques-b-all' : 'ques-b-skip'}
+                    onClick={e => contextTab.set(true)}
+                >Show All</Button>
+                <Button
+                    className={contextTab.get ? 'ques-b-skip' : 'ques-b-all'}
+                    onClick={e => contextTab.set(false)}
+                >Show Flagged</Button>
             </div>
         </div>
     )
 }
 
 function RenderQuestionRow(props: any) {
+    const quizContext: QuizContextModel | any = useContext(QuizContext);
+    const formG = quizContext.quizForm.get.f;
+    const formS = quizContext.quizForm.set;
     const rows = [];
-    for (let i = 1; i < q.length; i++) {
+    for (let i = 1; i <= formG.totalQuestions; i++) {
         if (i % 5 === 1) {
             rows.push(
-                <div className="rem-q-row">
-                    <div className={getC(i, props.activeQuestion)} onClick={e => props.setActiveQuestion(i)}>
+                <div className="rem-q-row" key={Math.random()}>
+                    <div
+                        className={GetC(i)}
+                        onClick={e => formS({ f: formG.setActiveQuestion(i - 1) })}>
                         <b>{i}</b>
                     </div>
-                    {[1, 2, 3, 4].map(v => <div className={getC(i + v, props.activeQuestion)} onClick={e => props.setActiveQuestion(i + v)}>
-                        <b>{i + v}</b>
-                    </div>)}
+                    {
+                        [1, 2, 3, 4].map(v => {
+                            return (
+                                <div
+                                    key={i + v}
+                                    className={GetC(i + v)}
+                                    onClick={e => formS({ f: formG.setActiveQuestion(i + v - 1) })}>
+                                    <b>{i + v}</b>
+                                </div>
+                            )
+                        }
+                        )
+                    }
                 </div>
             )
         }
     }
-    return (<div>{rows}</div>)
+    return (<>{rows}</>)
 }
 
-function getC(n: number, activeQu: number) {
+function GetC(n: number) {
+    const quizContext: QuizContextModel | any = useContext(QuizContext);
+    const formG = quizContext.quizForm.get.f;
+    const formS = quizContext.quizForm.set;
     let c = 'rem-q-no';
-    if (q[n]) {
-        if (n === activeQu) {
+    if (formG.questions[n - 1]) {
+        if (n === formG.activeQuestion + 1) {
             c += ' current-active-question'
         }
-        else if (questionDone.includes(n)) {
+        else if (formG.flaggedQuestion.includes(n - 1)) {
             c += ' question-done'
         }
         return c;

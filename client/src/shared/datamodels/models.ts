@@ -46,7 +46,7 @@ export interface runningQuizQuestions {
 export interface RunningQuiz {
     totalQuestions: number;
     activeQuestion: number;
-    skippedQuestions: number[];
+    flaggedQuestion: number[];
     questions: runningQuizQuestions[];
 }
 export interface QuizContextModel {

@@ -9,6 +9,22 @@ import { RunningQuiz, runningQuizQuestions, QuizContextModel } from '../../../..
 import { QuizContext } from './quizContextService';
 export default function Quiz() {
     document.title = 'Quiz - Good Luck :)';
+    const dummy: RunningQuiz =
+    {
+        activeQuestion: 1,
+        questions: [{
+            question: 'some question ...',
+            choices: Array(4).fill(1).map((v, i) => {
+                return {
+                    choice: 'choice ' + i,
+                    selected: false
+                }
+            })
+        }],
+        flaggedQuestion: [],
+        totalQuestions: 0
+    }
+    const quizContext: any = useContext(QuizContext)
     const [remainingTime, setRemainingTime] = useState(3610);
     const submitQuiz = (): void => {
     }
@@ -21,14 +37,17 @@ export default function Quiz() {
                         submitQuiz={submitQuiz}
                     />
                 </div>
-                <div className="quiz_ques-quesTab">
-                    <div className="quiz-ques">
-                        <Question />
-                    </div>
-                    <div className="quiz-quesTab">
-                        <QuestionsTab />
-                    </div>
-                </div>
+                {
+                    quizContext.quizForm.get.f ?
+                        <div className="quiz_ques-quesTab">
+                            <div className="quiz-ques">
+                                <Question />
+                            </div>
+                            <div className="quiz-quesTab">
+                                <QuestionsTab />
+                            </div>
+                        </div> : null
+                }
             </div>
         </div>
     )

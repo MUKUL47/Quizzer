@@ -7,17 +7,17 @@ const ques = 'Lorem Ipsum is simply dummy text of the printing and typesetting i
 const choices = Array(4).fill(1).map((v, i) => `is simply text of t Ipsum is simply dummy text of t ${i}`)
 export default function Question(props: any) {
     const quizContext: QuizContextModel | any = useContext(QuizContext);
-    const formG = quizContext.quizForm.get;
+    const formG = quizContext.quizForm.get.f;
     const formS = quizContext.quizForm.set;
     return (
         <div className="Question-lay">
             <div className="question-no-head">
                 <div className="question-no">
-                    Question 1.
+                    Question {formG.activeQuestion + 1}.
                 </div>
             </div>
             <div className="question-text">
-                {ques}
+                {formG.questions[formG.activeQuestion].question}
             </div>
 
             <div className="question-no-head">
@@ -31,35 +31,50 @@ export default function Question(props: any) {
             </div>
 
             <div className="quiz-done-skip">
-                <Button className="quiz-done quiz-ds-btn">Next</Button>
-                <Button className="quiz-skip quiz-ds-btn">Skip</Button>
+                <Button
+                    className="quiz-done quiz-ds-btn"
+                    onClick={e => formS({ f: formG.setActiveQuestion(formG.activeQuestion + 1) })}
+                >Next</Button>
+                <Button
+                    className="quiz-skip quiz-ds-btn"
+                    onClick={e => formS({ f: formG.setflaggedQuestion(formG.activeQuestion) })}
+                >{formG.flaggedQuestion.includes(formG.activeQuestion) ? 'Unflag' : 'Flag'}</Button>
             </div>
         </div>
     )
 }
-function RenderChoices(prosp: any) {
+function RenderChoices() {
+    const quizContext: QuizContextModel | any = useContext(QuizContext);
+    const formG = quizContext.quizForm.get.f;
+    const formS = quizContext.quizForm.set;
+    const choices = formG.questions[formG.activeQuestion].choices;
     let cc = [];
-    for (let i = 0; i < choices.length && choices[i]; i++) {
+    for (let i = 0; i < choices.length; i++) {
         if (i % 2 === 0) {
             const onlyOne: boolean = choices[i + 1] ? true : false;
             cc.push(
-                <div className="question-choices-mcq q-m-t">
+                <div className="question-choices-mcq q-m-t" key={Math.random()}>
                     <div className='question-choices-left choice-tab' style={!onlyOne ? { width: '47%' } : {}}>
                         <span className="correct-c">
-                            <Checkbox />
+                            <Checkbox
+                                checked={choices[i].selected}
+                                onChange={e => formS({ f: formG.toggleQuestionChoice(i) })} />
                         </span>
                         <span className="correct-cc" >
-                            {choices[i]}
+                            {choices[i].choice}
                         </span>
                     </div>
                     {
                         onlyOne ?
                             <div className="question-choices-right choice-tab">
                                 <span className="correct-c">
-                                    <Checkbox />
+                                    <Checkbox
+                                        checked={choices[i + 1].selected}
+                                        onChange={e => formS({ f: formG.toggleQuestionChoice(i + 1) })}
+                                    />
                                 </span>
-                                <span className="correct-cc">
-                                    {choices[i + 1]}
+                                <span className="correct-cc" >
+                                    {choices[i + 1].choice}
                                 </span>
                             </div> :
                             null
