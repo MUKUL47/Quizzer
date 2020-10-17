@@ -26,6 +26,15 @@ export default function Quiz() {
     }
     const quizContext: any = useContext(QuizContext)
     const [remainingTime, setRemainingTime] = useState(3610);
+    const [remainingTimeId, setRemainingTimeId] = useState(-1);
+    useEffect(() => {
+        const id = setTimeout(() => setRemainingTime(remainingTime - 1), 1000);
+        return () => {
+            if (remainingTimeId) {
+                clearTimeout(remainingTimeId)
+            }
+        }
+    }, [remainingTime])
     const submitQuiz = (): void => {
     }
     return (

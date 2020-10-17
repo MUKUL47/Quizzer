@@ -35,7 +35,7 @@
     .question-tab-choices{
         overflow: auto;
         // max-height: 28vh;
-        max-height: calc(80vh - 260pt);
+        max-height: calc(80vh - 220pt);
         background: #bbe3bf;
         padding: 10px 10px;
         border-radius: 10px;
@@ -111,12 +111,14 @@
         Button{
             font-size: 16px;
             font-weight: bold;
-            padding: 5px 25px 5px 25px;
+            padding: 10px 70px;
+            background: #fff;
         }
         .quiz-done{
             margin-right: 10px;
             background: #240670;
             color: #fff;
+            padding: 10px 70px;
         }
     }
 }

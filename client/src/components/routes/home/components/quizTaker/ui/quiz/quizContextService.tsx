@@ -6,7 +6,7 @@ export const QuizContextDataService = (props: any) => {
     const qq = Array(23).fill(2).map((v, j) => {
         return {
             question: 'some question ...' + j,
-            choices: Array(4).fill(1).map((v, i) => {
+            choices: Array(j + 1).fill(1).map((v, i) => {
                 return {
                     choice: 'choice ' + i + "-" + j,
                     selected: false

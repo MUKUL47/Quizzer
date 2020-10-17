@@ -3,7 +3,7 @@ import QuizInstructions from './ui/quizInstructions/quizInstructions';
 import Quiz from './ui/quiz/quiz';
 import { QuizContextDataService } from './ui/quiz/quizContextService';
 export default class QuizTaker extends React.Component {
-    state = { type: 'quizInstdructions' }
+    state = { type: 'quizInstructions' }
     constructor(props: any) {
         super(props)
     }

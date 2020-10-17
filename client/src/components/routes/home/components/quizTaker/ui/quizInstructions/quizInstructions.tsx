@@ -16,8 +16,20 @@ export default function QuizInstructions(props: any) {
     // const sss: any = { q: 5 };
     const [startsIn, setStartsIn] = useState(4001);
     const [expiresIn, setExpiresIn] = useState(3660001);
-    // useEffect(() => { setTimeout(() => setStartsIn(startsIn - 1), 1000) }, [startsIn])
-    // useEffect(() => { setTimeout(() => setExpiresIn(expiresIn - 1), 1000) }, [expiresIn])
+    const [remainingTimeIds, setRemainingTimeIds] = useState([1, 1]);
+    useEffect(() => {
+        const id: any = setTimeout(() => setStartsIn(startsIn - 1), 1000)
+        setRemainingTimeIds([id, remainingTimeIds[1]]);
+        return () => {
+            clearTimeout(remainingTimeIds[0])
+        }
+    }, [startsIn])
+    useEffect(() => {
+        const id: any = setTimeout(() => setExpiresIn(expiresIn - 1), 1000)
+        return () => {
+            clearTimeout(remainingTimeIds[1])
+        }
+    }, [expiresIn])
     return (
         <div className="quizInstructions-bg">
             <div className="q-inst">

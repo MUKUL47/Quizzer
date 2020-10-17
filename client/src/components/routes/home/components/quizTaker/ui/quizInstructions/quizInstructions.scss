@@ -1,9 +1,9 @@
 .quizInstructions-bg{
     background-color: #606ba4;
-    height: 100vh;
+    // height: 100%;
 
     .q-inst{
-        padding: 25px;
+        padding: calc(14vh - 0px) 10%;
         width: 50%;
         margin: auto;
 

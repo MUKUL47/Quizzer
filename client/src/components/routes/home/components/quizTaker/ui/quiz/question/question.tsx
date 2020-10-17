@@ -9,6 +9,7 @@ export default function Question(props: any) {
     const quizContext: QuizContextModel | any = useContext(QuizContext);
     const formG = quizContext.quizForm.get.f;
     const formS = quizContext.quizForm.set;
+    const contextTab = quizContext.questionTab;
     return (
         <div className="Question-lay">
             <div className="question-no-head">
@@ -33,7 +34,10 @@ export default function Question(props: any) {
             <div className="quiz-done-skip">
                 <Button
                     className="quiz-done quiz-ds-btn"
-                    onClick={e => formS({ f: formG.setActiveQuestion(formG.activeQuestion + 1) })}
+                    onClick={e => {
+                        formS({ f: formG.setActiveQuestion(formG.activeQuestion + 1) });
+                        contextTab.set(true)
+                    }}
                 >Next</Button>
                 <Button
                     className="quiz-skip quiz-ds-btn"
