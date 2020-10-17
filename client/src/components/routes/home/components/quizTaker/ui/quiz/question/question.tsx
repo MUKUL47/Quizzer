@@ -16,6 +16,9 @@ export default function Question(props: any) {
                 <div className="question-no">
                     Question {formG.activeQuestion + 1}.
                 </div>
+                <div>
+                    {formG.getTotalAttempt()} Attempted / {formG.questions.length}
+                </div>
             </div>
             <div className="question-text">
                 {formG.questions[formG.activeQuestion].question}

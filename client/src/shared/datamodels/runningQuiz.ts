@@ -23,6 +23,12 @@ export default class RunningQuizData {
     public getflaggedQuestion(): number[] {
         return this.flaggedQuestion;
     }
+    public checkIfQuestionAttempt(questionIdx: number) {
+        return this.questions[questionIdx].choices.find((v) => v.selected === true) ? true : false;
+    }
+    public getTotalAttempt(): number {
+        return this.questions.filter(question => question.choices.find(choice => choice.selected === true)).length;
+    }
 
     //setters
 

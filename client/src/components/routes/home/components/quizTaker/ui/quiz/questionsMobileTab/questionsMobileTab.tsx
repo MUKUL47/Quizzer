@@ -15,7 +15,7 @@ export default function QuestionsMobileTab() {
         <>
             {Array(formG.totalQuestions).fill(1).map((v: number, i: any) => {
                 return (
-                    <div className="mobile-tab-q"
+                    <div className={`mobile-tab-q${GetC(i)}`}
                         key={i}
                         style={formG.activeQuestion == i ? { background: '#3369bd', color: '#fff' } : {}}
                         ref={formG.activeQuestion == i ? activeDiv : null}
@@ -25,4 +25,17 @@ export default function QuestionsMobileTab() {
                 )
             })}
         </>)
+}
+
+function GetC(n: number) {
+    const quizContext: any = useContext(QuizContext);
+    const formG = quizContext.quizForm.get.f;
+    let c = ''
+    if (formG.flaggedQuestion.includes(n)) {
+        c += ' question-done'
+    }
+    if (formG.checkIfQuestionAttempt(n)) {
+        c += ' question-attempt';
+    }
+    return c;
 }

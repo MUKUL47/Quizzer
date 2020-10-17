@@ -15,6 +15,7 @@
     }
 
     .question-no-head{
+        justify-content: space-between;
         display: flex;
         color: #475a8f;
         font-size: 20px;
@@ -109,6 +110,7 @@
         padding: 20px;
 
         Button{
+            text-transform: none !important;
             font-size: 16px;
             font-weight: bold;
             background: #fff;

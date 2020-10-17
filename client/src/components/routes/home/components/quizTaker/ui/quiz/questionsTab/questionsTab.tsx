@@ -15,9 +15,9 @@ export default function QuestionsTab(props: any) {
         <div className="ques-tab-lay">
             <div className="tab-head">
                 Total Questions
-                <div className="tab-head-roadIcon">
+                {/* <div className="tab-head-roadIcon">
                     <HelpIcon />
-                </div>
+                </div> */}
             </div>
             <div className="rem-ques">
                 <RenderQuestionRow
@@ -43,41 +43,21 @@ function RenderQuestionRow(props: any) {
     const quizContext: QuizContextModel | any = useContext(QuizContext);
     const formG = quizContext.quizForm.get.f;
     const formS = quizContext.quizForm.set;
+    const formFlag = quizContext.questionTab.get;
     const rows: any = [];
-    GetNestedArr().forEach((qRows, i) => {
+    let questionArr: any = formFlag ? [...Array(formG.totalQuestions).fill(1).map((v, i) => i)] : [...formG.flaggedQuestion]
+    questionArr.forEach((q: number, i: any) => {
         rows.push(
             <div className="rem-q-row" key={i}>
-                {
-                    qRows.map((q: number, j: number) => (
-                        <div key={`${i}-${j}`}
-                            className={GetC(q + 1)}
-                            onClick={e => formS({ f: formG.setActiveQuestion(q) })}>
-                            <b>{q + 1}</b>
-                        </div>
-                    ))
-                }
+                <div
+                    className={GetC(q + 1)}
+                    onClick={e => formS({ f: formG.setActiveQuestion(q) })}>
+                    {q + 1}
+                </div>
             </div>
         )
     })
     return (<>{rows}</>)
-}
-
-function GetNestedArr() {
-    const quizContext: QuizContextModel | any = useContext(QuizContext);
-    const formG = quizContext.quizForm.get.f;
-    const formFlag = quizContext.questionTab.get;
-    const contextTab = quizContext.questionTab;
-    const nest = [];
-    let questionArr: any = formFlag ? [...Array(formG.totalQuestions).fill(1).map((v, i) => i)] : [...formG.flaggedQuestion];
-    while (questionArr.length > 0) {
-        nest.push(questionArr.splice(0, 5))
-    }
-    if (nest[nest.length - 1] && nest[nest.length - 1].length < 5) {
-        nest[nest.length - 1] = [...nest[nest.length - 1], ...Array(5 - nest[nest.length - 1].length).fill(-1)]
-    } else if (!formFlag && !nest[nest.length - 1]) {
-        contextTab.set(true)
-    }
-    return nest;
 }
 
 function GetC(n: number) {
@@ -90,6 +70,9 @@ function GetC(n: number) {
         }
         else if (formG.flaggedQuestion.includes(n - 1)) {
             c += ' question-done'
+        }
+        if (formG.checkIfQuestionAttempt(n - 1)) {
+            c += ' question-attempt';
         }
         return c;
     }

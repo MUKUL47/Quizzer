@@ -28,7 +28,7 @@
         .tab-head-roadIcon{
             position: absolute;
             top : 1.5vh;
-            left : 1.5vh;
+            right : 1.5vh;
 
             .MuiSvgIcon-root{
                 width: 25px;
@@ -38,17 +38,18 @@
     }
 
     .rem-ques{
-        margin-top: 3%;
+        display: flex;
+        flex-wrap: wrap;
         background: #cecddb;
         border-radius: 5px;
-        padding: 15px;
+        padding: 9px;
         overflow: auto;
         box-shadow: 1px 2px 5px #888888;
-        max-height: calc(100vh - 300px);
+        max-height: calc(100vh - 321px);
     
         .rem-q-row{
             display : flex;
-            margin-bottom: 5%;
+            margin: 8px 8px;
 
 
             .rem-q-no{
@@ -88,9 +89,9 @@
     }
 
     .ques-b-all-skip{
-        margin-top: 10px;
-        display: flex;
-        padding: 10px 0;
+            margin-top: 10px;
+            display: flex;
+            padding: 10px 0;
 
         .ques-b-all{
             font-weight: bold;

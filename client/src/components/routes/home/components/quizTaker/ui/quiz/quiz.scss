@@ -40,6 +40,11 @@
     }
 }
 
+.question-attempt{
+    text-decoration: line-through !important;
+    opacity: .45 !important;
+}
+
 //mobile
 @media only screen and (max-width: 750px) {
     .quiz_ques-quesTab{
@@ -52,8 +57,8 @@
         display: none !important;
     }
     .QuestionsMobileTab{
-        display: block !important;
-        padding: 15px 0px;
+        display: flex !important;
+        padding: 8.5px 0px;
         overflow: auto;
         scroll-behavior: smooth;
     }
