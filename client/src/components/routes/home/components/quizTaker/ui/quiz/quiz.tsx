@@ -3,6 +3,7 @@ import './quiz.scss'
 import Header from './header/header';
 import Question from './question/question';
 import QuestionsTab from './questionsTab/questionsTab';
+import QuestionsMobileTab from './questionsMobileTab/questionsMobileTab';
 import Utils from '../../../../../../../shared/utils';
 import RunningQuizData from '../../../../../../../shared/datamodels/runningQuiz';
 import { RunningQuiz, runningQuizQuestions, QuizContextModel } from '../../../../../../../shared/datamodels/models';
@@ -48,14 +49,19 @@ export default function Quiz() {
                 </div>
                 {
                     quizContext.quizForm.get.f ?
-                        <div className="quiz_ques-quesTab">
-                            <div className="quiz-ques">
-                                <Question />
+                        <>
+                            <div className="QuestionsMobileTab" style={{ display: 'none' }}>
+                                <QuestionsMobileTab />
                             </div>
-                            <div className="quiz-quesTab">
-                                <QuestionsTab />
+                            <div className="quiz_ques-quesTab">
+                                <div className="quiz-ques">
+                                    <Question />
+                                </div>
+                                <div className="quiz-quesTab">
+                                    <QuestionsTab />
+                                </div>
                             </div>
-                        </div> : null
+                        </> : null
                 }
             </div>
         </div>

@@ -46,10 +46,10 @@ function RenderQuestionRow(props: any) {
     const rows: any = [];
     GetNestedArr().forEach((qRows, i) => {
         rows.push(
-            <div className="rem-q-row" key={Math.random()}>
+            <div className="rem-q-row" key={i}>
                 {
-                    qRows.map((q: number) => (
-                        <div key={Math.random()}
+                    qRows.map((q: number, j: number) => (
+                        <div key={`${i}-${j}`}
                             className={GetC(q + 1)}
                             onClick={e => formS({ f: formG.setActiveQuestion(q) })}>
                             <b>{q + 1}</b>

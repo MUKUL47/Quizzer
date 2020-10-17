@@ -14,7 +14,7 @@ export default class QuizTaker extends React.Component {
     }
     render() {
         return (
-            this.state.type === 'quizInstructions' ?
+            this.state.type === 'quizInsstructions' ?
                 <QuizInstructions onQuiz={this.startQuiz.bind(this)} />
                 :
                 <QuizContextDataService>
