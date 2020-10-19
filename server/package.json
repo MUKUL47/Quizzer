@@ -1,0 +1,14 @@
+{
+  "name": "quizzer",
+  "version": "1.0.0",
+  "description": "quizzer server;",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mukul",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^4.0.3"
+  }
+}
