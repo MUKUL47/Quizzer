@@ -30,13 +30,19 @@ export default class QuizMaker {
             }
             delete quizData.applicants;
             if (answer == 'true') {
-                if (!otp || otp && !quizData.authentication || !Utils.validateOtp(quizData.authentication, otp)) {
+                console.log(otp, quizData.authentication)
+                if (!otp || !Utils.validateOtp(quizData.authentication, otp)) {
                     response.status(403).send({ error: 'Access Denied' });
                     return;
                 }
+                const obj = {};
+                const quizId = id;
+                obj[quizId] = quizData;
                 delete quizData.authentication;
+                await firebase.database().ref().update(obj);
                 response.send(quizData);
             } else {
+                delete quizData.authentication;
                 let questions = quizData.data.questions;
                 for (let qIdx in questions) {
                     for (let cIdx in questions[qIdx].choices) {
@@ -69,17 +75,5 @@ export default class QuizMaker {
         } catch (e) {
             response.status(500).send(e)
         }
-    }
-}
-class Question {
-    id?: string;
-    owner: Owner;
-    data: Data;
-    constructor(owner: Owner, data: Data) {
-        this.owner = owner;
-        this.data = data;
-    }
-    setId(id: string) {
-        this.id = id;
     }
 }
