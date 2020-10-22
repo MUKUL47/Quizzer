@@ -14,6 +14,7 @@ import QuizMaker from './quizMaker/quizMakerController';
 import QuizTaker from './quizTaker/quizTaker';
 
 routes.post(Routes.makeQuiz, QuizMaker.createQuiz);
+routes.put(Routes.updateQuiz, QuizMaker.updateQuiz);
 routes.get(Routes.quiz, QuizMaker.getQuiz);
 routes.get(Routes.validate, QuizMaker.validateUser);
 routes.put(Routes.takeQuiz, QuizTaker.takeQuiz);

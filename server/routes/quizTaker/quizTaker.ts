@@ -28,7 +28,6 @@ export default class QuizTaker {
             await firebase.database().ref().update(obj);
             response.send({ message: "Quiz submitted", quiz: quizData['applicants'][rollNo] });
         } catch (e) {
-            console.log(e)
             response.status(500).send(e)
         }
     }

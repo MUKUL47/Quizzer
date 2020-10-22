@@ -66,12 +66,53 @@ export default class QuizMaker {
                 return;
             }
             const secret = Utils.getRand(100000, 999999);
+            console.log(quizData)
+            const email = quizData.owner.email;
+            await Utils.mail(email, secret);
             quizData['authentication'] = { secret: secret, date: new Date().toISOString() }
             const obj = {};
             const quizId = id;
             obj[quizId] = quizData;
             await firebase.database().ref().update(obj);
-            response.status(200).send({ message: 'OTP sent' });
+            let hiddenEmail = email.split('').map((v, i) => {
+                if (i <= 3 || i >= email.length - 3) {
+                    return v;
+                }
+                return '*'
+            }).join('')
+            response.status(200).send({ message: `OTP sent to ${hiddenEmail}` });
+        } catch (e) {
+            console.log(e)
+            response.status(500).send(e)
+        }
+    }
+
+    public static async updateQuiz(request: any, response) {
+        try {
+            const id: string = request.params.id;
+            const otp: string = request.headers.otp;
+            if (!id) {
+                response.status(400).send({ error: 'Invalid Id' });
+                return;
+            }
+            let quizData = (await firebase.database().ref(id).once('value')).toJSON()
+            if (!quizData) {
+                response.status(404).send({ error: 'Quiz not found' });
+                return;
+            }
+            if (!otp || !Utils.validateOtp(quizData.authentication, otp)) {
+                response.status(403).send({ error: 'Access Denied' });
+            } else {
+                if (quizData.applicants) {
+                    response.status(400).send({ error: 'Few students have already taken this quiz' });
+                    return;
+                }
+                const obj = {};
+                obj[id] = request.body;
+                await firebase.database().ref().update(obj);
+                response.status(200).send(obj)
+
+            }
         } catch (e) {
             response.status(500).send(e)
         }
