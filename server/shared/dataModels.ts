@@ -1,26 +1,28 @@
 export interface Quiz {
-    id: string;
+    id ?: string;
     owner: Owner;
-    data: data;
+    data: Data;
 }
-interface Owner {
+export interface Owner {
     name: string;
     quizTitle: string;
     email: string;
     subscribe?: boolean;
 }
-interface Applicant {
+export interface Applicant {
     name: string;
     rollNumber: string;
     subscribe?: boolean;
 }
-interface data {
+export interface Data {
     questions: question[];
     quizDuration: number;
     quizStartTime: string;
     quizExpiryTime: string;
 }
-interface question {
+export interface question {
     question: string,
-    choices: { choice: string, selected: boolean }[]
+    choices:
+        { choice: string, isCorrect: boolean }[] | 
+        { choice: string, selected ?: boolean }[]
 }

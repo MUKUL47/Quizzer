@@ -1,5 +1,6 @@
 const routes = require('express')();
 const firebase = require('firebase')
+require('dotenv').config({path: '../.env'});
 firebase.initializeApp({
     apiKey: process.env.apiKey,
     authDomain: process.env.authDomain,
@@ -11,7 +12,7 @@ firebase.initializeApp({
 import Routes from '../shared/routes';
 import QuizMaker from './quizMaker/quizMakerController';
 
-routes.get(Routes.quiz, QuizMaker.createQuiz);
-routes.get(Routes.takeQuiz, QuizMaker.createQuiz);
+routes.post(Routes.makeQuiz, QuizMaker.createQuiz);
+routes.get(Routes.quiz, QuizMaker.getQuiz);
 export default routes;
 export { firebase };
