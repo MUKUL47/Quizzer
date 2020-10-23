@@ -17,15 +17,9 @@ export const QuestionDataContext = (props: any) => {
         const exist: number = mcq.findIndex((q: questionModel) => q.id === mcqObj.id);
         if (exist > -1) {
             updateMcq(mcqObj, exist)
-            setTimeout(() => {
-                console.log(mcq)
-            })
             return
         }
         setMcq([...mcq, mcqObj])
-        setTimeout(() => {
-            console.log(mcq)
-        })
     }
     const dMcq = (index: number): void => {
         const questionsClone: questionModel[] = mcq;

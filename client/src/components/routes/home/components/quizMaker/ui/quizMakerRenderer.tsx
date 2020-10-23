@@ -9,7 +9,6 @@ import { resetData } from '../quizMaker';
 export default function QuizMakerLayout(props: any) {
     const history = useHistory();
     const { dataChanged, update } = props;
-    console.log(props)
     const [toggleFormQuiz, setToggleFormQuiz] = useState({ type: 'form' });
     const [resetToggle, setResetToggle] = useState((null as any));
     const goToHome = (): void => {

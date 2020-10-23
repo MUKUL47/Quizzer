@@ -17,13 +17,11 @@ import QuizStructure from '../../../../../../../shared/datamodels/quizStucture';
 export default function QuizForm(props: any) {
     document.title = 'Quiz Structure'
     const { dataChanged, resetToggle, update } = props;
-    console.log(props.name)
     const quizStructure = new QuizStructure(2, Utils.getDateMaterialFormat(), Utils.getDateMaterialFormat(new Date(new Date().getTime() + (60 * 60 * 1000))))
     const [form, setForm] = useState({ q: quizStructure });
     const [formValidated, setFormValidated] = useState(false);
     useEffect(() => {
         setFormValidated(form.q.validateForm());
-        console.log('->>')
     }, [form])
     useEffect(() => {
         if (update && update.form) {
@@ -36,7 +34,9 @@ export default function QuizForm(props: any) {
             setForm({ q: form.q.emailGS(update.form.email) })
         }
     }, [update])
-    useEffect(() => { setForm({ q: quizStructure }); }, [resetToggle])
+    useEffect(() => {
+        setTimeout(() => setForm({ q: new QuizStructure(2, Utils.getDateMaterialFormat(), Utils.getDateMaterialFormat(new Date(new Date().getTime() + (60 * 60 * 1000)))) }))
+    }, [resetToggle])
     return (
         <div>
             <div className="header-name-struct">Form Structure</div>

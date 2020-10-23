@@ -12,7 +12,6 @@ export default class Main extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.state)
         const sub = apiLoader.subscribe({ next: (bool: boolean) => this.setState({ ...this.state, loading: bool }) });
         const toastSub = toast.subscribe({ next: (toastData: any) => this.setState({ ...this.state, toast: { message: toastData.message, type: toastData.type } }) });
         this.setState({ ...this.state, apiSub: sub, toastSub: toastSub });
