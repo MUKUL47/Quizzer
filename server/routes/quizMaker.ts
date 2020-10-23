@@ -21,6 +21,7 @@ export default class QuizMaker {
             const otp: string = request.headers.otp;
             let quizData = request.quizData;
             delete quizData.applicants;
+            console.log(otp, quizData.authentication, answer)
             if (answer == 'true') {
                 console.log(otp, quizData.authentication)
                 if (!otp || !Utils.validateOtp(quizData.authentication, otp)) {
@@ -54,7 +55,6 @@ export default class QuizMaker {
             const id: string = request.params.id;
             let quizData = request.quizData;
             const secret = Utils.getRand(100000, 999999);
-            console.log(quizData)
             const email = quizData.owner.email;
             await Utils.mail(email, secret);
             quizData['authentication'] = { secret: secret, date: new Date().toISOString() }
@@ -70,7 +70,6 @@ export default class QuizMaker {
             }).join('')
             response.status(200).send({ message: `OTP sent to ${hiddenEmail}` });
         } catch (e) {
-            console.log(e)
             response.status(500).send(e)
         }
     }

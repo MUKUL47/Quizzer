@@ -1,0 +1,118 @@
+
+.otp-parent{
+    .MuiDialog-paperWidthSm{
+        width: 50%;
+        height: 60% !important;
+        border-radius: 10px;
+    }
+}
+
+.otp-modal{
+    padding : 20px;
+
+    .goBack{
+        position: relative;
+
+        .close-otp{
+            position: absolute;
+            right: 0;
+            width: 15px;
+            border-radius: 100%;
+            background: #00384e;
+            height: 15px;
+            padding: 1px;
+            color: #fff;
+            cursor: pointer;
+        }
+    }
+
+    .otp-title{
+        text-align: center;
+        padding: 18px;
+        font-weight: 500;
+        padding-top: 25px;
+    }
+
+    .otp-input{
+        .otp-inp{
+            font-size: 18px;
+            width: 12px;
+            height: 12px;
+            margin: 3px;
+            padding: 15px;
+            text-align: center;
+            color: #003c53;
+            border-radius: 5px;
+            border: 2px solid #003c53;
+        }
+    }
+
+    .otp-btns{
+        padding: 15px 0px 0px 0px;
+
+        .otp-verify{
+            .otp-verify-btn{
+                color: #fff;
+                padding: 5px 10px 5px 10px;
+                background: #2966c2;
+            }
+        }
+
+        .otp-resend{
+            float : right;
+            .otp-resend-btn{
+                color: #fff;
+                padding: 5px 10px 5px 10px;
+                background: #2ea3a6;
+            }
+        }
+
+        .icon{
+            width: 16px;
+            height: 16 px;
+            color: #fff;
+            padding: 0px 0px 0px 10px;
+        }
+    }
+}
+
+.bg-empty-dis{
+    background: #94abc3 !important;
+}
+
+@media only screen and (max-width: 700px) {
+    .modal{
+        width: 80% !important;
+    }
+    .logo-details{
+        display: none !important;
+    }
+    
+
+    .form-details{
+        border-radius: 20px;
+        width: 100% !important;
+
+        .logo{
+            background : none !important;
+            padding: 20px !important;
+            padding-top: 0px !important;
+    
+            .logo-top{
+                display: block !important;
+                text-align: center !important;
+                padding-bottom: 20px !important;
+            }
+        }
+    }
+
+    //otp
+
+    .otp-inp{
+        font-size: 22px !important;
+        width: 33px !important;
+        margin: 3px !important;
+        padding: 4px !important;
+        height: 33px !important;
+    }
+ }

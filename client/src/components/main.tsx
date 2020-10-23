@@ -39,7 +39,7 @@ export default class Main extends React.Component {
                         <CancelIcon className="cancel-snack" onClick={e => this.setState({ ...this.state, toast: { message: '', type: '' } })} />
                     </div>
                 </Snackbar>
-                <Backdrop open={this.state.loading} style={{ zIndex: 10 }}>
+                <Backdrop open={this.state.loading} style={{ zIndex: 100 }}>
                     <CircularProgress style={{ color: '#fff' }} />
                 </Backdrop>
                 <RouteController></RouteController>

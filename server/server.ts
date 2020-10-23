@@ -5,8 +5,9 @@ const bodyParser = require("body-parser");
 const server = require('http').createServer(app)
 const path = require('path');
 import routes from './routes/routeController';
-server.listen(process.env.PORT || 3001)
+server.listen(process.env.PORT || 3030)
 app.use(express.static(path.join(__dirname, './')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(require('cors')());
 app.use(routes);

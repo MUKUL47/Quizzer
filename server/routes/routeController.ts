@@ -10,13 +10,36 @@ firebase.initializeApp({
     messagingSenderId: process.env.messagingSenderId
 })
 import Routes from '../shared/routes';
-import QuizMaker from './quizMaker/quizMakerController';
-import QuizTaker from './quizTaker/quizTaker';
+import QuizMaker from './quizMaker';
+import QuizTaker from './quizTaker';
 
 routes.post(Routes.makeQuiz, QuizMaker.createQuiz);
-routes.put(Routes.updateQuiz, QuizMaker.updateQuiz);
-routes.get(Routes.quiz, QuizMaker.getQuiz);
-routes.get(Routes.validate, QuizMaker.validateUser);
-routes.put(Routes.takeQuiz, QuizTaker.takeQuiz);
+routes.put(Routes.updateQuiz, validateId, validateQuiz, QuizMaker.updateQuiz);
+routes.get(Routes.quiz, validateId, validateQuiz, QuizMaker.getQuiz);
+routes.get(Routes.validate, validateQuiz, QuizMaker.validateUser);
+routes.put(Routes.takeQuiz, validateId, validateQuiz, QuizTaker.takeQuiz);
 export default routes;
 export { firebase };
+
+//middlewares
+function validateId(request: any, response, next) {
+    if (!request.params.id) {
+        response.status(400).send({ error: 'Invalid Id' });
+        return;
+    }
+    next();
+}
+async function validateQuiz(request: any, response, next) {
+    try {
+        let quizData = (await firebase.database().ref(request.params.id).once('value')).toJSON()
+        if (!quizData) {
+            response.status(404).send({ error: 'Quiz not found' });
+            return;
+        }
+        request.quizData = quizData;
+        next();
+    }
+    catch (e) {
+        response.status(500).send(e)
+    }
+}

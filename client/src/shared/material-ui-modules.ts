@@ -33,7 +33,14 @@ import MapIcon from '@material-ui/icons/Map';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Backdrop from '@material-ui/core/Backdrop';
 import Snackbar from '@material-ui/core/Snackbar';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import ReplayIcon from '@material-ui/icons/Replay';
+import CloseIcon from '@material-ui/icons/Close';
+
 export {
+    CloseIcon,
+    CheckCircleOutlineIcon,
+    ReplayIcon,
     Snackbar,
     CircularProgress,
     Modal,
