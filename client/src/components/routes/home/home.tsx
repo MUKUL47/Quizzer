@@ -5,6 +5,8 @@ import QuizzerRoutes from '../../../shared/routes'
 export default function Home() {
     const history = useHistory();
     function submitModify(quizId: String): void {
+        console.log(quizId)
+        return;
         history.push(`${QuizzerRoutes.quizMaker}/${quizId.trim()}`);
     }
     function createNew(): void {

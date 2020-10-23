@@ -1,0 +1,25 @@
+.snack-message{
+    border-radius: 5px;
+    padding: 10px 15px;
+    background: #fff;
+    display: flex;
+    .snack-m{
+        width: 20vh;
+        padding: 3px 0px;
+    }
+    .cancel-snack{
+        width: 17px;
+        cursor: pointer;
+    }
+}
+
+.snack-m-error{
+    background-color: #b31919;
+    font-weight: bold;
+    color: #fff;
+}
+.snack-m-success{
+    background-color: #00982e;
+    font-weight: bold;
+    color: #fff;
+}

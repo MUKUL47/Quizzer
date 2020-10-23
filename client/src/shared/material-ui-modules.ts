@@ -30,7 +30,12 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import DoneIcon from '@material-ui/icons/Done';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import MapIcon from '@material-ui/icons/Map';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Backdrop from '@material-ui/core/Backdrop';
+import Snackbar from '@material-ui/core/Snackbar';
 export {
+    Snackbar,
+    CircularProgress,
     Modal,
     HelpIcon,
     Dialog,
@@ -62,5 +67,6 @@ export {
     PlayArrowIcon,
     DoneIcon,
     MeetingRoomIcon,
-    MapIcon
+    MapIcon,
+    Backdrop
 }

@@ -1,3 +1,7 @@
+import { Subject } from 'rxjs';
+const apiLoader = new Subject<boolean>();
+const toast = new Subject<{ message: String, type: string }>();
+export { apiLoader, toast }
 export default class Utils {
     public static getDateMaterialFormat(date?: Date): string {
         const d = date ? date : new Date();
