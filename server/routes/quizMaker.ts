@@ -31,8 +31,6 @@ export default class QuizMaker {
                 const obj = {};
                 const quizId = id;
                 obj[quizId] = quizData;
-                delete quizData.authentication;
-                await firebase.database().ref().update(obj);
                 response.send(quizData);
             } else {
                 delete quizData.authentication;
@@ -55,6 +53,7 @@ export default class QuizMaker {
             const id: string = request.params.id;
             let quizData = request.quizData;
             const secret = Utils.getRand(100000, 999999);
+            console.log(secret)
             const email = quizData.owner.email;
             await Utils.mail(email, secret);
             quizData['authentication'] = { secret: secret, date: new Date().toISOString() }
@@ -88,6 +87,7 @@ export default class QuizMaker {
                 }
                 const obj = {};
                 obj[id] = request.body;
+                delete quizData.authentication;
                 await firebase.database().ref().update(obj);
                 response.status(200).send(obj)
 

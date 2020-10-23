@@ -16,11 +16,27 @@ import Utils from '../../../../../../../shared/utils';
 import QuizStructure from '../../../../../../../shared/datamodels/quizStucture';
 export default function QuizForm(props: any) {
     document.title = 'Quiz Structure'
+    const { dataChanged, resetToggle, update } = props;
+    console.log(props.name)
     const quizStructure = new QuizStructure(2, Utils.getDateMaterialFormat(), Utils.getDateMaterialFormat(new Date(new Date().getTime() + (60 * 60 * 1000))))
-    console.log(quizStructure)
     const [form, setForm] = useState({ q: quizStructure });
     const [formValidated, setFormValidated] = useState(false);
-    useEffect(() => setFormValidated(form.q.validateForm()), [form])
+    useEffect(() => {
+        setFormValidated(form.q.validateForm());
+        console.log('->>')
+    }, [form])
+    useEffect(() => {
+        if (update && update.form) {
+            setForm({ q: form.q.nameGS(update.form.name) })
+            setForm({ q: form.q.quizTitleGS(update.form.quizTitle) })
+            setForm({ q: form.q.subscribeGS(update.form.subcribe) })
+            setForm({ q: form.q.durationGS(update.form.quizDuration) })
+            setForm({ q: form.q.quizStartTimeGS(update.form.quizStartTime) })
+            setForm({ q: form.q.quizEndTimeGS(update.form.quizEndTime) })
+            setForm({ q: form.q.emailGS(update.form.email) })
+        }
+    }, [update])
+    useEffect(() => { setForm({ q: quizStructure }); }, [resetToggle])
     return (
         <div>
             <div className="header-name-struct">Form Structure</div>
@@ -152,7 +168,10 @@ export default function QuizForm(props: any) {
                     variant="contained"
                     color="primary"
                     disabled={!formValidated}
-                    onClick={e => props.goToQuestion(form.q.getForm())}
+                    onClick={e => {
+                        props.goToQuestion(form.q.getForm())
+                        dataChanged(form.q)
+                    }}
                 >Prepare Questions
                 </Button>
             </div>

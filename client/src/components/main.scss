@@ -4,8 +4,10 @@
     background: #fff;
     display: flex;
     .snack-m{
-        width: 20vh;
-        padding: 3px 0px;
+        width: 50vh;
+        padding: 3px 0px;    
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .cancel-snack{
         width: 17px;

@@ -2,11 +2,22 @@ import axios from 'axios'
 import { resolve } from 'dns';
 import { QuizzerApi } from '../routes'
 export default class Api {
-    public static updateQuiz(quizId: string): Promise<any> {
+    public static createQuiz(quizData: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            const finalUrl = QuizzerApi.base + QuizzerApi.createUpdateQuiz + `/${quizId}`;
+            const finalUrl = QuizzerApi.base + QuizzerApi.createUpdateQuiz;
             axios
-                .post(finalUrl)
+                .post(finalUrl, quizData)
+                .then((response) => resolve(response))
+                .catch((err) => reject(err));
+        })
+    }
+    public static updateQuiz(quizData: any, quizId: string, otp: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let headers: any = {};
+            headers['otp'] = otp;
+            const finalUrl = QuizzerApi.base + QuizzerApi.createUpdateQuiz + '/' + quizId;
+            axios
+                .put(finalUrl, quizData, { headers: headers })
                 .then((response) => resolve(response))
                 .catch((err) => reject(err));
         })

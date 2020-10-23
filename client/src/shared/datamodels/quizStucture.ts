@@ -69,6 +69,7 @@ export default class QuizStructure {
     }
 
     public quizEndTimeGS(value?: string | any): any {
+        console.log(value)
         if (value || value === '') {
             this.quizEndTime = value;
             return this;

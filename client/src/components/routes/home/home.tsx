@@ -30,8 +30,7 @@ export default function Home() {
             apiLoader.next(true);
             const response = await Api.getQuiz(quizId, true, otp);
             apiLoader.next(false);
-            console.log(response.data);
-            // history.push(`${QuizzerRoutes.quizMaker}/${quizId.trim()}`);
+            history.push(`${QuizzerRoutes.quizMaker}/${quizId.trim()}`, { data: response.data, otp: otp });
         } catch (error) {
             apiLoader.next(false);
             toast.next({ message: error.response.data.error, type: 'error' });

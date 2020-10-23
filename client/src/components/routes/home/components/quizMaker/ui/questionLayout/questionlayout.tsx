@@ -8,6 +8,7 @@ import Question from './question/questionDialog'
 import { QuestionContext } from './questionContextService';
 export default function QuestionLayout(props: any) {
     document.title = 'Quiz Question'
+    const { dataChanged, resetToggle } = props;
     const questionsArr: questionModel[] = []
     const [question, setQuestion] = useState(questionsArr)
     const [dragHover, setDragHover] = useState(-1);
@@ -83,23 +84,36 @@ export default function QuestionLayout(props: any) {
             </div>
 
             <div className="submit">
-                <div className="pos-relative padding-down-10p">
-                    <AddIcon className="add-icon-ques" />
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={e => setQuestionReady(true)}>
-                        Add Question
+                <div className="submit-form-ques padding-down-10p">
+                    <div className="pos-relative sfq">
+                        <AddIcon className="add-icon-ques" />
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={e => setQuestionReady(true)}>
+                            Add Question
                     </Button>
+                    </div>
+                    <div className="pos-relative quiz-btn sfq">
+                        <ArrowBackIcon className="add-icon-ques" />
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={e => props.goToForm()}
+                        >
+                            Quiz Stucture
+                    </Button>
+                    </div>
                 </div>
                 <div className="pos-relative quiz-btn">
-                    <ArrowBackIcon className="add-icon-ques" />
                     <Button
                         variant="contained"
-                        color="primary"
-                        onClick={e => props.goToForm()}
+                        color="default"
+                        style={{ backgroundColor: '#2f4c7d', color: '#fff', fontWeight: 'bold' }}
+                        disabled={questionContext.mcq.get.length === 0}
+                        onClick={e => dataChanged(questionContext.mcq.get, true)}
                     >
-                        Quiz Stucture
+                        Submit Quiz
                     </Button>
                 </div>
             </div>

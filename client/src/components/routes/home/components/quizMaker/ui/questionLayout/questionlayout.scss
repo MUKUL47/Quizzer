@@ -69,6 +69,13 @@ div{
             padding: 10px;
             font-size: 16px;
         }
+        .submit-form-ques{
+            display: flex;
+            justify-content: space-between;
+            .sfq{
+                width: 48%;
+            }
+        }
     }
     .add-icon-ques{
         position: absolute;
