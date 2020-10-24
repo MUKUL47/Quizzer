@@ -2,10 +2,10 @@
     padding: 10px 0px 10px 0px;
     display: flex;
     position: relative;
+    justify-content: space-between;
 
     .quiz-remaining-time{
         float: left;       
-        width: 50%;
         padding: 10px 5px 5px 5px;
 
         #rem-time{
@@ -30,7 +30,6 @@
     .quiz-submit-abandon{
         float: right;
         text-align: end;
-        width: 55%;
 
         .quiz-btn{
             position: relative;

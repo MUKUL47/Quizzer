@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { resolve } from 'dns';
 import { QuizzerApi } from '../routes'
 export default class Api {
     public static createQuiz(quizData: any): Promise<any> {

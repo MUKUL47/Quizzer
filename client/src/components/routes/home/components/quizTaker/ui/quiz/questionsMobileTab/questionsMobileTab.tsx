@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef, useCallback } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import './questionsMobileTab.scss';
 import { QuizContext } from '../quizContextService';
 import './questionsMobileTab.scss'
@@ -14,13 +14,15 @@ export default function QuestionsMobileTab() {
     return (
         <>
             {Array(formG.totalQuestions).fill(1).map((v: number, i: any) => {
+                const I = i + 1;
+                const fS = { fontSize: `${20 - `${I}`.length * 3 + 2}px` };
                 return (
                     <div className={`mobile-tab-q${GetC(i)}`}
                         key={i}
-                        style={formG.activeQuestion == i ? { background: '#3369bd', color: '#fff' } : {}}
-                        ref={formG.activeQuestion == i ? activeDiv : null}
+                        style={formG.activeQuestion === i ? { background: '#3369bd', color: '#fff', ...fS } : fS}
+                        ref={formG.activeQuestion === i ? activeDiv : null}
                         onClick={e => formS({ f: formG.setActiveQuestion(i) })}>
-                        {i + 1}
+                        {I}
                     </div>
                 )
             })}

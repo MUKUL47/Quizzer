@@ -1,10 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Button, Checkbox } from '../../../../../../../../shared/material-ui-modules'
 import './question.scss';
 import { QuizContext } from '../quizContextService';
 import { QuizContextModel } from '../../../../../../../../shared/datamodels/models';
-const ques = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
-const choices = Array(4).fill(1).map((v, i) => `is simply text of t Ipsum is simply dummy text of t ${i}`)
 export default function Question(props: any) {
     const quizContext: QuizContextModel | any = useContext(QuizContext);
     const formG = quizContext.quizForm.get.f;
@@ -16,7 +14,7 @@ export default function Question(props: any) {
                 <div className="question-no">
                     Question {formG.activeQuestion + 1}.
                 </div>
-                <div>
+                <div style={{ fontSize: "16px" }}>
                     {formG.getTotalAttempt()} Attempted / {formG.questions.length}
                 </div>
             </div>
@@ -60,43 +58,29 @@ function RenderChoices() {
     const formG = quizContext.quizForm.get.f;
     const formS = quizContext.quizForm.set;
     const choices = formG.questions[formG.activeQuestion].choices;
-    let cc = [];
-    for (let i = 0; i < choices.length; i++) {
-        if (i % 2 === 0) {
-            const onlyOne: boolean = choices[i + 1] ? true : false;
-            cc.push(
-                <div className="question-choices-mcq q-m-t" key={i}>
-                    <div className='question-choices-left choice-tab'
-                        onClick={e => formS({ f: formG.toggleQuestionChoice(i) })}
-                        style={!onlyOne ? { width: '47%' } : {}}>
-                        <span className="correct-c">
-                            <Checkbox
-                                checked={choices[i].selected}
-                            />
-                        </span>
-                        <span className="correct-cc" >
-                            {choices[i].choice}
-                        </span>
-                    </div>
-                    {
-                        onlyOne ?
-                            <div className="question-choices-right choice-tab" onClick={e => formS({ f: formG.toggleQuestionChoice(i + 1) })}>
-                                <span className="correct-c">
-                                    <Checkbox
-                                        checked={choices[i + 1].selected}
-                                    />
-                                </span>
-                                <span
-                                    className="correct-cc"
-                                >
-                                    {choices[i + 1].choice}
-                                </span>
-                            </div> :
-                            null
-                    }
+    return (
+        <div id='flex-2-option'>
+            {choices.map((c: any, i: number) => {
+                return (
+                    <div className='question-choices-mcq q-m-t' key={i}
+                        style={i === choices.length - 1 && i % 2 === 0 ? { flex: '0 100%' } : {}}
+                    >
+                        <div className='question-choices-left choice-tab'
+                            onClick={e => formS({ f: formG.toggleQuestionChoice(i) })}
+                        >
+                            <span className="correct-c">
+                                <Checkbox
+                                    checked={c.selected}
+                                />
+                            </span>
+                            <span className="correct-cc" >
+                                {c.choice}
+                            </span>
+                        </div>
 
-                </div>)
-        }
-    }
-    return (<div>{cc}</div>)
+                    </div>
+                )
+            })}
+        </div>
+    )
 }

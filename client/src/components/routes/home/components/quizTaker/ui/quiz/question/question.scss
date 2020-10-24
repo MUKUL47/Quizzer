@@ -48,7 +48,7 @@
             font-weight: bold;
             font-size: 17px;
             color : #323847;
-            // margin-bottom: 1%;
+            flex: 0 45%;
 
             .question-choices-left{
                 float: left;
@@ -61,7 +61,7 @@
             }
             
             .choice-tab{
-                width: 47.5%;
+                width: 100%;
                 padding: 2.5px;
                 background: #fff;
                 border-radius: 7.5px;
@@ -122,6 +122,11 @@
             color: #fff;
         }
     }
+}
+#flex-2-option{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 ::-webkit-scrollbar {
   width: 5px;

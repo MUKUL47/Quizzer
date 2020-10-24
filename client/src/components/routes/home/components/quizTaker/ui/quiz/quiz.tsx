@@ -5,8 +5,6 @@ import Question from './question/question';
 import QuestionsTab from './questionsTab/questionsTab';
 import QuestionsMobileTab from './questionsMobileTab/questionsMobileTab';
 import Utils from '../../../../../../../shared/utils';
-import RunningQuizData from '../../../../../../../shared/datamodels/runningQuiz';
-import { RunningQuiz, runningQuizQuestions, QuizContextModel } from '../../../../../../../shared/datamodels/models';
 import { QuizContext } from './quizContextService';
 export default function Quiz() {
     document.title = 'Quiz - Good Luck :)';

@@ -1,6 +1,6 @@
 
 import { QuestionContext } from '../questionContextService';
-import { choice, validateQuestion, QuestionDataContextValue, questionModel } from '../../../../../../../../shared/datamodels/models';
+import { choice, QuestionDataContextValue, questionModel } from '../../../../../../../../shared/datamodels/models';
 import React, { useState, useEffect, useContext } from 'react';
 import QuestionModelData from '../../../../../../../../shared/datamodels/questionModel';
 import '../questionlayout.scss'

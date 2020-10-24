@@ -1,11 +1,10 @@
 import React, { createRef, useEffect, useState } from 'react';
 import './otp.scss'
 import {
-    TextField, Dialog, Button, ReplayIcon, CloseIcon, CheckCircleOutlineIcon
-    // , Popover,HelpIcon
+    Dialog, Button, ReplayIcon, CloseIcon, CheckCircleOutlineIcon
 } from '../../../../../shared/material-ui-modules';
 export default function Otp(props: any) {
-    const { cancelOtp, verifyOtp, resend } = props;
+    const { verifyOtp, resend } = props;
     const [focusOn, setFocusOn] = useState(0)
     const [values, setValues] = useState(({ 0: '', 1: '', 2: '', 3: '', 4: '', 5: '' } as any))
     const [focuses, setFocuses] = useState((Array(6).fill(true).map(_ => createRef()) as any))
