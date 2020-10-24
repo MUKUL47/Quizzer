@@ -2,12 +2,6 @@ import axios from 'axios'
 import { resolve } from 'dns';
 import { QuizzerApi } from '../routes'
 export default class Api {
-    public static initAxiosResponseController(){
-        axios.interceptors.response.use((null as any), (error) => {
-            const err = error.response ? error.response.data.error  : 'Unknown error occured';
-            Promise.reject(err)
-        });
-    }
     public static createQuiz(quizData: any): Promise<any> {
         return new Promise((resolve, reject) => {
             const finalUrl = QuizzerApi.base + QuizzerApi.createUpdateQuiz;

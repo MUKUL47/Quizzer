@@ -33,7 +33,7 @@ export default class QuizMaker extends React.Component {
             resetData.next(true);
         } catch (e) {
             apiLoader.next(false);
-            toast.next({ message: e, type: 'error' })
+            toast.next({ message: e.response.data.error, type: 'error' })
         }
     }
 
@@ -47,7 +47,7 @@ export default class QuizMaker extends React.Component {
             resetData.next(true);
         } catch (e) {
             apiLoader.next(false);
-            toast.next({ message: e, type: 'error' })
+            toast.next({ message: e.response.data.error, type: 'error' })
         }
     }
 
