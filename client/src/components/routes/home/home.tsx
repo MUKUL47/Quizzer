@@ -20,8 +20,9 @@ export default function Home() {
             toast.next({ message: response.data.message, type: '' });
             setOtpReady(true);
         } catch (error) {
+            console.log(error)
             apiLoader.next(false);
-            toast.next({ message: error.response.data.error, type: 'error' });
+            toast.next({ message: error, type: 'error' })
         }
     }
     async function verifyOtp(otp: string) {
@@ -33,7 +34,7 @@ export default function Home() {
             history.push(`${QuizzerRoutes.quizMaker}/${quizId.trim()}`, { data: response.data, otp: otp });
         } catch (error) {
             apiLoader.next(false);
-            toast.next({ message: error.response.data.error, type: 'error' });
+            toast.next({ message: error, type: 'error' })
         }
     }
     function createNew(): void {
