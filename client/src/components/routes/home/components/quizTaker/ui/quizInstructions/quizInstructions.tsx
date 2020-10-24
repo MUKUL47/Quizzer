@@ -15,20 +15,13 @@ export default function QuizInstructions(props: any) {
     const [tnc, setTnc] = useState(false);
     const [startsIn, setStartsIn] = useState(4001);
     const [expiresIn, setExpiresIn] = useState(3660001);
-    const [remainingTimeIds, setRemainingTimeIds] = useState([1, 1]);
     useEffect(() => {
-        const id: any = setTimeout(() => setStartsIn(startsIn - 1), 1000)
-        setRemainingTimeIds([id, remainingTimeIds[1]]);
-        return () => {
-            clearTimeout(remainingTimeIds[0])
-        }
+        const s = setTimeout(() => setStartsIn(startsIn - 1), 1000);
+        return (() => clearTimeout(s))
     }, [startsIn])
     useEffect(() => {
-        const id: any = setTimeout(() => setExpiresIn(expiresIn - 1), 1000)
-        setRemainingTimeIds([remainingTimeIds[0], id]);
-        return () => {
-            clearTimeout(remainingTimeIds[1])
-        }
+        const s = setTimeout(() => setExpiresIn(expiresIn - 1), 1000);
+        return (() => clearTimeout(s))
     }, [expiresIn])
     return (
         <div className="quizInstructions-bg">

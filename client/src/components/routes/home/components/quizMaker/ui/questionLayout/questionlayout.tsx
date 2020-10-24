@@ -8,7 +8,7 @@ import Question from './question/questionDialog'
 import { QuestionContext } from './questionContextService';
 export default function QuestionLayout(props: any) {
     document.title = 'Quiz Question'
-    const { dataChanged, resetToggle } = props;
+    const { dataChanged } = props;
     const questionsArr: questionModel[] = []
     const [question, setQuestion] = useState(questionsArr)
     const [dragHover, setDragHover] = useState(-1);

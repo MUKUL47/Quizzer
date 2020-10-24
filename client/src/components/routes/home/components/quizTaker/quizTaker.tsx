@@ -9,7 +9,7 @@ export default class QuizTaker extends React.Component {
     }
     startQuiz(): void {
         const goFullScreen: any = document.querySelector('#goFullScreen');
-        goFullScreen.click();
+        // goFullScreen.click();
         this.setState({ type: 'quiz' });
     }
     render() {

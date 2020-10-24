@@ -3,10 +3,10 @@ import RunningQuizData from '../../../../../../../shared/datamodels/runningQuiz'
 import React, { useState, createContext, useEffect } from "react";
 export const QuizContext = createContext(null);
 export const QuizContextDataService = (props: any) => {
-    const qq = Array(2322).fill(2).map((v, j) => {
+    const qq = Array(100).fill(4).map((v, j) => {
         return {
             question: 'some question ...' + j,
-            choices: Array(j + 1).fill(1).map((v, i) => {
+            choices: Array(4).fill(1).map((v, i) => {
                 return {
                     choice: 'choice ' + i + "-" + j,
                     selected: false

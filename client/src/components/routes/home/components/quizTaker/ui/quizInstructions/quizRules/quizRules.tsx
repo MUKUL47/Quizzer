@@ -10,7 +10,6 @@ export default function QuizRules(props: any) {
                 <div className="tnc-points">
                     <ul>
                         <li>During quiz your screen will on full screen.</li>
-                        <li>You cannot attempt a question more than once.</li>
                         <li>You can skip a question.</li>
                         <li>If full screen or tab is changed, you'll be disqualified.</li>
                     </ul>

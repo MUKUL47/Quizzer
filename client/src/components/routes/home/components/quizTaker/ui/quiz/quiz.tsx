@@ -10,28 +10,18 @@ import { RunningQuiz, runningQuizQuestions, QuizContextModel } from '../../../..
 import { QuizContext } from './quizContextService';
 export default function Quiz() {
     document.title = 'Quiz - Good Luck :)';
-    const dummy: RunningQuiz =
-    {
-        activeQuestion: 1,
-        questions: [{
-            question: 'some question ...',
-            choices: Array(4).fill(1).map((v, i) => {
-                return {
-                    choice: 'choice ' + i,
-                    selected: false
-                }
-            })
-        }],
-        flaggedQuestion: [],
-        totalQuestions: 0
-    }
     const quizContext: any = useContext(QuizContext)
     const [remainingTime, setRemainingTime] = useState(3610);
-    const [remainingTimeId, setRemainingTimeId] = useState(-1);
+    const [mobile, setMobile] = useState((window.innerWidth < 750 as boolean))
     useEffect(() => {
         const id = setTimeout(() => setRemainingTime(remainingTime - 1), 1000);
-        return () => clearTimeout(remainingTimeId)
-    }, [remainingTime])
+        return (() => clearTimeout(id))
+    }, [remainingTime]);
+
+    useEffect(() => {
+        window.addEventListener('resize', e => setMobile(window.innerWidth < 750))
+        return (() => window.addEventListener('resize', e => setMobile(window.innerWidth < 750)))
+    }, [])
 
     const submitQuiz = (): void => {
     }
@@ -48,14 +38,14 @@ export default function Quiz() {
                     quizContext.quizForm.get.f ?
                         <>
                             <div className="QuestionsMobileTab" style={{ display: 'none' }}>
-                                <QuestionsMobileTab />
+                                {mobile ? <QuestionsMobileTab /> : null}
                             </div>
                             <div className="quiz_ques-quesTab">
                                 <div className="quiz-ques">
                                     <Question />
                                 </div>
                                 <div className="quiz-quesTab">
-                                    <QuestionsTab />
+                                    {!mobile ? <QuestionsTab /> : null}
                                 </div>
                             </div>
                         </> : null
