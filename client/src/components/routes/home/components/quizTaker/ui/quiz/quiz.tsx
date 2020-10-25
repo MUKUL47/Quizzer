@@ -10,13 +10,18 @@ export default function Quiz(props: any) {
     const { quizData, form, submitQuizOver } = props;
     document.title = 'Quiz - Good Luck :)';
     const quizContext: any = useContext(QuizContext)
-    const [remainingTime, setRemainingTime] = useState(Number(quizData.quizDuration) * 60);
+    const [remainingTime, setRemainingTime] = useState((Number(quizData.quizDuration) * 60 as any));
     const [mobile, setMobile] = useState((window.innerWidth < 750 as boolean))
     useEffect(() => {
+        if(quizContext.quizStatus.get){
+            return;
+        }
         const id = setTimeout(() => {
             if (remainingTime === 1) {
                 clearTimeout(id);
-                submitQuizOver({ questions: quizContext.quizForm.get.f.questions, form: form })
+                setRemainingTime('Time up!');
+                submitQuizOver({ questions: quizContext.quizForm.get.f.questions, form: form }, false)
+                quizContext.quizStatus.set(true)
                 return;
             }
             setRemainingTime(remainingTime - 1);
@@ -30,7 +35,11 @@ export default function Quiz(props: any) {
     }, [])
 
     const submitQuiz = (): void => {
-        submitQuizOver({ questions: quizContext.quizForm.get.f.questions, form: form }, true)
+        if(quizContext.quizStatus.get){
+            return;
+        }
+        submitQuizOver({ questions: quizContext.quizForm.get.f.questions, form: form }, true);
+        quizContext.quizStatus.set(true)
     }
     return (
         <div className="quiz-layout">

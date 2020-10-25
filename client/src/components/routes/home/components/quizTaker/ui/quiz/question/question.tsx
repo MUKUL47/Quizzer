@@ -36,6 +36,7 @@ export default function Question(props: any) {
                 <Button
                     className="quiz-done quiz-ds-btn"
                     onClick={e => {
+                        if(quizContext.quizStatus.get) return;
                         formS({ f: formG.setActiveQuestion(formG.activeQuestion + 1) });
                         contextTab.set(true)
                     }}
@@ -43,6 +44,7 @@ export default function Question(props: any) {
                 <Button
                     className="quiz-skip quiz-ds-btn"
                     onClick={e => {
+                        if(quizContext.quizStatus.get) return;
                         if (formG.flaggedQuestion.length === 1) {
                             contextTab.set(true)
                         }
@@ -73,7 +75,10 @@ function RenderChoices() {
                         style={i === choices.length - 1 && isOdd ? oddStyle : {}}
                     >
                         <div className='question-choices-left choice-tab'
-                            onClick={e => formS({ f: formG.toggleQuestionChoice(i) })}
+                            onClick={e => {
+                                if(quizContext.quizStatus.get) return;
+                                formS({ f: formG.toggleQuestionChoice(i) })
+                            }}
                         >
                             <span className="correct-c">
                                 <Checkbox

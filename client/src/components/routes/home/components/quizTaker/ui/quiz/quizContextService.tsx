@@ -6,6 +6,7 @@ export const QuizContextDataService = (props: any) => {
     const formLoading: any = { f: null }
     const [quizForm, setQuizForm] = useState(formLoading);
     const [questionTab, setQuestionTab] = useState(true);
+    const [quizStatus, setQuizStatus] = useState(false);
     useEffect(() => { setQuizForm({ f: new RunningQuizData(quizData.questions) }) }, [])
     const value: any = {
         quizForm: {
@@ -15,6 +16,10 @@ export const QuizContextDataService = (props: any) => {
         questionTab: {
             get: questionTab,
             set: setQuestionTab
+        },
+        quizStatus : {
+            get : quizStatus,
+            set : setQuizStatus
         }
     }
     return (

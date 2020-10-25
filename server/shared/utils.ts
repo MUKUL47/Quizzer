@@ -9,13 +9,13 @@ export default class Utils {
     public static getRand(min, max) {
         return Math.floor((Math.random() * (max - min) + min))
     }
-    public static mail(email, code) {
+    public static mail(email, code, html?: string, subject?: string) {
         return new Promise((resolve, reject) => {
             require('nodemailer').createTransport({
                 service: 'gmail',
                 auth: { user: process.env.authUser, pass: process.env.authUserPass }
             })
-                .sendMail(Utils.formEmail(email, code), (error, info) => {
+                .sendMail(Utils.formEmail(email, code, html, subject), (error, info) => {
                     if (info) {
                         resolve(true)
                         return;
@@ -25,12 +25,12 @@ export default class Utils {
         })
     }
 
-    private static formEmail(email, code) {
+    private static formEmail(email, code, html?: string, subject?: string) {
         return {
             from: process.env.authUser,
             to: email,
-            subject: 'Quizzer verification code (Expires in 10 minutes)',
-            html: `<h1>${code}</h1>`,
+            subject: subject ? subject : 'Quizzer verification code (Expires in 10 minutes)',
+            html: html ? html : `<h1>${code}</h1>`,
             priority: "high"
         };
     }

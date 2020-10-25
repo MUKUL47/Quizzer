@@ -32,16 +32,36 @@ export default class QuizTaker extends React.Component {
         return formattedQuestions;
     }
     startQuiz(form: any): void {
-        const goFullScreen: any = document.querySelector('#goFullScreen');
-        goFullScreen.click();
-        this.setState({ type: 'quiz', form: form.q });
+        this.initalizeQuiz(form.q)
+    }
+
+    async initalizeQuiz(form : any){
+        try{
+            const props = (this.props as any);
+            apiLoader.next(true);
+            const submittQuizData = {
+                name: form.name,
+                email: form.email
+            }
+            await Api.submitQuiz(props.match.params.id, form.rollNumber, submittQuizData)
+            apiLoader.next(false);
+            const goFullScreen: any = document.querySelector('#goFullScreen');
+            goFullScreen.click();
+            this.setState({ type: 'quiz', form: form });
+        }catch(e){
+            toastPopup.next({ message: e.response.data.error, label: 'Error' });
+            apiLoader.next(false);
+
+        }
     }
 
     async submitQuiz(allFormData: any, manualSubmit?: boolean) {
-        try {
-            apiLoader.next(true);
+        apiLoader.next(true);
+        if(window.innerHeight === window.outerHeight){
             const exitFullScreen: any = document.querySelector('#exitFullScreen');
             exitFullScreen.click();
+        }
+        try {
             const submittQuizData = {
                 name: allFormData.form.name,
                 email: allFormData.form.email,
@@ -56,11 +76,12 @@ export default class QuizTaker extends React.Component {
                 })
             }
             const props = (this.props as any);
-            await Api.submitQuiz(props.match.params.id, allFormData.form.rollNumber, submittQuizData)
+            const r = await Api.submitQuiz(props.match.params.id, allFormData.form.rollNumber, submittQuizData)
             apiLoader.next(false);
-            toastPopup.next({ message: manualSubmit ? 'Your quiz is submitted succesfully!' : 'Quiz over!', label: 'Quiz' });
+            toastPopup.next({ message: r.response.data.message, label: 'Quiz' });
             props.history.push('/');
         } catch (e) {
+            toastPopup.next({ message: e.response.data.error, label: 'Error' });
             apiLoader.next(false);
         }
     }
