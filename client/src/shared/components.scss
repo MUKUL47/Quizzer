@@ -1,0 +1,25 @@
+.ToastPopupModal{
+    position: relative;
+    padding: 10% 20px;
+    // text-align: center;
+
+    .ToastPopupModal-text{
+        padding: 25px 10px;
+    }
+
+    .ToastPopupModal-btn{
+        Button{
+            width: 100%;
+            color : #fff;
+            font-weight: bold;
+            background-color: #202ebe;
+        }
+    }
+}
+
+    .ToastPopupModal-label{
+        position: absolute;
+        left : 2.5%;
+        top : 3.5%;
+        opacity: .5;
+    }

@@ -6,13 +6,21 @@ import QuestionsTab from './questionsTab/questionsTab';
 import QuestionsMobileTab from './questionsMobileTab/questionsMobileTab';
 import Utils from '../../../../../../../shared/utils';
 import { QuizContext } from './quizContextService';
-export default function Quiz() {
+export default function Quiz(props: any) {
+    const { quizData, form, submitQuizOver } = props;
     document.title = 'Quiz - Good Luck :)';
     const quizContext: any = useContext(QuizContext)
-    const [remainingTime, setRemainingTime] = useState(3610);
+    const [remainingTime, setRemainingTime] = useState(Number(quizData.quizDuration) * 60);
     const [mobile, setMobile] = useState((window.innerWidth < 750 as boolean))
     useEffect(() => {
-        const id = setTimeout(() => setRemainingTime(remainingTime - 1), 1000);
+        const id = setTimeout(() => {
+            if (remainingTime === 1) {
+                clearTimeout(id);
+                submitQuizOver({ questions: quizContext.quizForm.get.f.questions, form: form })
+                return;
+            }
+            setRemainingTime(remainingTime - 1);
+        }, 1000);
         return (() => clearTimeout(id))
     }, [remainingTime]);
 
@@ -22,6 +30,7 @@ export default function Quiz() {
     }, [])
 
     const submitQuiz = (): void => {
+        submitQuizOver({ questions: quizContext.quizForm.get.f.questions, form: form }, true)
     }
     return (
         <div className="quiz-layout">

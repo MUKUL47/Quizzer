@@ -36,7 +36,6 @@ import Snackbar from '@material-ui/core/Snackbar';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import ReplayIcon from '@material-ui/icons/Replay';
 import CloseIcon from '@material-ui/icons/Close';
-
 export {
     CloseIcon,
     CheckCircleOutlineIcon,

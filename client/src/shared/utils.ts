@@ -1,7 +1,8 @@
 import { Subject } from 'rxjs';
 const apiLoader = new Subject<boolean>();
 const toast = new Subject<{ message: String, type: string }>();
-export { apiLoader, toast }
+const toastPopup = new Subject<{ message: String, label?: string }>();
+export { apiLoader, toast, toastPopup }
 export default class Utils {
     public static getDateMaterialFormat(date?: Date): string {
         const d = date ? date : new Date();
@@ -12,15 +13,16 @@ export default class Utils {
         return `${d.getFullYear()}-${month}-${day}T${hour}:${mins}`
     }
 
-    private static getDaysHourSeconds(seconds: number) {
-        const totalSeconds = seconds % 60;
-        const minutes = Math.floor(seconds / 60);
+    private static getDaysHourSeconds(seconds: number | string) {
+        const totalSeconds = Number(seconds) % 60;
+        const minutes = Math.floor(Number(seconds) / 60);
         const hours = Math.floor(minutes / 60);
         const days = Math.floor(hours / 24);
         return { seconds: totalSeconds, minutes: minutes % 60, hours: hours % 24, days: days };
     }
 
-    public static formatSeconds(seconds: number): boolean | string {
+    public static formatSeconds(seconds: number | string): boolean | string {
+        if (typeof seconds === 'string') { return seconds; }
         const gP: Function = (s: number) => s > 1 ? 's' : '';
         if (seconds === 0) return false;
         const time = this.getDaysHourSeconds(seconds);

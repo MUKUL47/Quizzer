@@ -38,4 +38,10 @@ export default class Api {
             axios.get(finalUrl).then((response) => resolve(response)).catch((err) => reject(err));
         })
     }
+    public static submitQuiz(quizId: string, rollNumber: string, quizData: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            const finalUrl = `${QuizzerApi.base}${QuizzerApi.takeQuiz}/${quizId}/${rollNumber}`;
+            axios.put(finalUrl, quizData).then((response) => resolve(response)).catch((err) => reject(err));
+        })
+    }
 }

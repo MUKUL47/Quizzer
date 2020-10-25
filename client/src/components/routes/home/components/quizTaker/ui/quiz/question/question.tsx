@@ -53,17 +53,24 @@ export default function Question(props: any) {
         </div>
     )
 }
+const setInactive = { opacity: '0', pointerEvents: 'none' };
 function RenderChoices() {
     const quizContext: QuizContextModel | any = useContext(QuizContext);
     const formG = quizContext.quizForm.get.f;
     const formS = quizContext.quizForm.set;
-    const choices = formG.questions[formG.activeQuestion].choices;
+    let choices = formG.questions[formG.activeQuestion].choices;
+    let isOdd = choices.length % 2 === 1;
+    let oddStyle = {};
+    if (isOdd) {
+        oddStyle = setInactive;
+        choices = [...choices, choices[choices.length - 1]];
+    }
     return (
         <div id='flex-2-option'>
             {choices.map((c: any, i: number) => {
                 return (
                     <div className='question-choices-mcq q-m-t' key={i}
-                        style={i === choices.length - 1 && i % 2 === 0 ? { flex: '0 100%' } : {}}
+                        style={i === choices.length - 1 && isOdd ? oddStyle : {}}
                     >
                         <div className='question-choices-left choice-tab'
                             onClick={e => formS({ f: formG.toggleQuestionChoice(i) })}

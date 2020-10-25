@@ -1,12 +1,22 @@
 import validator from 'validator';
 export default class QuizInstructionsModel {
-    private name: string;
-    private rollNumber: number | string;
-    private email: string = '';
-    private emailResults: boolean = false;
-    constructor(name: string, rollNumber: number | string) {
+    name: string;
+    rollNumber: number | string;
+    email: string = '';
+    emailResults: boolean = false;
+    //
+    title: string;
+    author: string;
+    duration: string;
+    quizStartsIn: string = '';
+    quizEndsIn: string = '';
+    constructor(name: string, rollNumber: number | string, title: string, author: string, duration: string) {
         this.name = name;
         this.rollNumber = rollNumber;
+        //
+        this.title = title;
+        this.author = author;
+        this.duration = duration;
     }
     //setters
     public setName(name: string) {

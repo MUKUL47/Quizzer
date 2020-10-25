@@ -2,7 +2,7 @@ import { runningQuizQuestions } from './models';
 export default class RunningQuizData {
     private totalQuestions: number;
     private activeQuestion: number = 0;
-    private flaggedQuestion: number[] = [3, 4, 5, 6, 7, 12, 22, 11];
+    private flaggedQuestion: number[] = [];
     private questions: runningQuizQuestions[];
 
     constructor(questions: runningQuizQuestions[]) {

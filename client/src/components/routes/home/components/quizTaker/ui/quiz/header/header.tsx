@@ -10,7 +10,7 @@ export default function Header(props: any) {
             </div>
             <div className="quiz-submit-abandon">
                 <span className="quiz-submit quiz-btn">
-                    <Button onClick={props.submitQuiz()}>Submit</Button>
+                    <Button onClick={e => props.submitQuiz()}>Submit</Button>
                 </span>
             </div>
         </div>

@@ -1,20 +1,28 @@
 import { Backdrop, CircularProgress, Snackbar, CancelIcon } from '../shared/material-ui-modules';
 import React from 'react';
-import { apiLoader, toast } from '../shared/utils';
+import { apiLoader, toast, toastPopup } from '../shared/utils';
 import RouteController from './routes/routeController';
 import './main.scss';
+import { ToastPopupModal } from '../shared/components';
 export default class Main extends React.Component {
     state = {
         loading: false,
-        apiSub: (window as any),
+        apiSub: (null as any),
         toast: { type: 'error', message: '' },
-        toastSub: (window as any)
+        toastSub: (null as any),
+        toastPopup: {
+            open: false,
+            sub: (null as any),
+            message: ('' as any),
+            label: ('' as any)
+        }
     }
 
     componentDidMount() {
-        const sub = apiLoader.subscribe({ next: (bool: boolean) => this.setState({ ...this.state, loading: bool }) });
-        const toastSub = toast.subscribe({ next: (toastData: any) => this.setState({ ...this.state, toast: { message: toastData.message, type: toastData.type } }) });
-        this.setState({ ...this.state, apiSub: sub, toastSub: toastSub });
+        const sub = apiLoader.subscribe({ next: (bool: boolean) => this.setState({ loading: bool }) });
+        const toastSub = toast.subscribe({ next: (toastData: any) => this.setState({ toast: { message: toastData.message, type: toastData.type } }) });
+        const toastPopupSub = toastPopup.subscribe({ next: (msg: any) => this.setState({ toastPopup: { ...this.state.toastPopup, message: msg.message, label: msg.label, open: true } }) })
+        this.setState({ apiSub: sub, toastSub: toastSub, toastPopup: { ...this.state.toastPopup, sub: toastPopupSub } });
     }
     componentWillUnmount() {
         if (this.state.apiSub) {
@@ -23,6 +31,12 @@ export default class Main extends React.Component {
         if (this.state.toastSub) {
             this.state.toastSub.unsubscribe();
         }
+        if (this.state.toastPopup.sub) {
+            this.state.toastPopup.sub.unsubscribe();
+        }
+    }
+    onToastClose() {
+        this.setState({ toastPopup: { ...this.state.toastPopup, open: false } })
     }
     render() {
         return (
@@ -41,6 +55,12 @@ export default class Main extends React.Component {
                 <Backdrop open={this.state.loading} style={{ zIndex: 100 }}>
                     <CircularProgress style={{ color: '#fff' }} />
                 </Backdrop>
+                <ToastPopupModal
+                    open={this.state.toastPopup.open}
+                    onclose={this.onToastClose.bind(this)}
+                    label={this.state.toastPopup.label}
+                    message={this.state.toastPopup.message}
+                ></ToastPopupModal>
                 <RouteController></RouteController>
             </>
         )
