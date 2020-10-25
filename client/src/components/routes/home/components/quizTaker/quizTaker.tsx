@@ -38,28 +38,28 @@ export default class QuizTaker extends React.Component {
     }
 
     async submitQuiz(allFormData: any, manualSubmit?: boolean) {
-        apiLoader.next(true);
-        const exitFullScreen: any = document.querySelector('#exitFullScreen');
-        exitFullScreen.click();
-        const submittQuizData = {
-            name: allFormData.form.name,
-            email: allFormData.form.email,
-            questions: allFormData.questions.map((question: any) => {
-                return {
-                    choices: question.choices.map((v: any, i: number) => {
-                        if (v.selected === true) {
-                            return i + 1;
-                        }
-                    }).filter((l: number) => l > -1)
-                }
-            })
-        }
-        const props = (this.props as any);
-        await Api.submitQuiz(props.match.params.id, allFormData.form.rollNumber, submittQuizData)
-        apiLoader.next(false);
-        toastPopup.next({ message: manualSubmit ? 'Your quiz is submitted succesfully!' : 'Quiz over!', label: 'Quiz' });
-        props.history.push('/');
         try {
+            apiLoader.next(true);
+            const exitFullScreen: any = document.querySelector('#exitFullScreen');
+            exitFullScreen.click();
+            const submittQuizData = {
+                name: allFormData.form.name,
+                email: allFormData.form.email,
+                questions: allFormData.questions.map((question: any) => {
+                    return {
+                        choices: question.choices.map((v: any, i: number) => {
+                            if (v.selected === true) {
+                                return i + 1;
+                            }
+                        }).filter((l: number) => l > -1)
+                    }
+                })
+            }
+            const props = (this.props as any);
+            await Api.submitQuiz(props.match.params.id, allFormData.form.rollNumber, submittQuizData)
+            apiLoader.next(false);
+            toastPopup.next({ message: manualSubmit ? 'Your quiz is submitted succesfully!' : 'Quiz over!', label: 'Quiz' });
+            props.history.push('/');
         } catch (e) {
             apiLoader.next(false);
         }
