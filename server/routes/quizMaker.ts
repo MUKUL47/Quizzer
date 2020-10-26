@@ -15,7 +15,7 @@ export default class QuizMaker {
         }
     }
     public static async getQuiz(request: any, response, next) {
-        try {
+        try {//
             const id: string = request.params.id;
             const answer: boolean | string = request.headers.answer;
             const otp: string = request.headers.otp;
