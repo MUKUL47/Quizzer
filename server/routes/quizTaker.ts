@@ -2,49 +2,70 @@ import { Quiz, Owner, Data } from '../shared/dataModels';
 import { firebase } from './routeController';
 import Utils from '../shared/utils';
 export default class QuizTaker {
-    public static async takeQuiz(request: any, response) {
+    public static async registerForQuiz(request: any, response) {
         try {
             const id: string = request.params.id;
             const rollNo: string = request.params.rollno;
             const quizStudentData = request.body;
             let quizData = request.quizData;
-            if (!quizData.applicants ||
-                quizData.applicants[rollNo] &&
-                !quizData.applicants[rollNo]['name'] &&
-                !quizData.applicants[rollNo]['questions']
-            ) {
-                quizData['applicants'] = { ...quizData['applicants'] };
-                quizData['applicants'][rollNo] = { name: quizStudentData.name, email: quizStudentData.email ? quizStudentData.email : null };
-                const obj = {};
-                obj[id] = quizData;
-                await firebase.database().ref().update(obj);
-                response.status(200).send();
+            if (quizData.applicants && quizData.applicants[rollNo] && quizData.applicants[rollNo].questions) {
+                response.status(400).send({ error: 'Quiz already submitted' })
                 return;
             }
-            else if (quizData.applicants && quizData.applicants[rollNo] && quizData.applicants[rollNo]['questions']) {
-                response.status(400).send({ error: 'Quiz already taken', quiz: quizData.applicants[rollNo] });
+            else if (new Date(quizData.data.quizEndTime) <= new Date()) {
+                response.status(400).send({ error: 'Quiz expired' })
                 return;
             }
-            quizData['applicants'] = { ...quizData['applicants'] };
+            if (!quizData.applicants) {
+                quizData['applicants'] = {}
+            }
             quizData['applicants'][rollNo] = {
-                questions: QuizTaker.validateQuiz(quizData.data.questions, quizStudentData.questions),
                 name: quizStudentData.name,
-                email: quizStudentData.email ? quizStudentData.email : null,
-
-            };
-            const userQD = quizData['applicants'][rollNo];
-            const quizBody = QuizTaker.emailQuizHTML(quizData['applicants'][rollNo]);
-            if (userQD.email) {
-                await Utils.mail(userQD.email, null, quizBody.body, quizBody.subject)
+                email: quizStudentData.email
             }
             const obj = {};
-            const quizId = id;
-            obj[quizId] = quizData;
+            obj[id] = quizData;
             await firebase.database().ref().update(obj);
-            response.send({ message: `Quiz submitted${userQD.email ? ', check your email for results' : ''}`, quiz: quizData['applicants'][rollNo] });
+            response.status(200).send();
+            return;
         } catch (e) {
-            console.log(e)
-            response.status(500).send(e)
+            response.status(500).send({ error: 'Unknown error occured' })
+        }
+    }
+    public static async submitQuiz(request: any, response) {
+        try {
+            const id: string = request.params.id;
+            const rollNo: string = request.params.rollno;
+            const quizStudentData = request.body;
+            let quizData = request.quizData;
+            if (!quizStudentData.questions) {
+                response.status(400).send({ error: 'Questions not found' })
+                return;
+            }
+            else if (!quizData.applicants || !quizData.applicants[rollNo]) {
+                response.status(400).send({ error: 'Student not registered' })
+                return;
+            }
+            else if (quizData.applicants[rollNo].questions) {
+                response.status(400).send({ error: 'Quiz already submitted', quiz: quizData['applicants'][rollNo] })
+                return;
+            }
+            quizData['applicants'][rollNo] = {
+                ...quizData['applicants'][rollNo],
+                questions: QuizTaker.validateQuiz(quizData.data.questions, quizStudentData.questions)
+            }
+            const email = quizData['applicants'][rollNo].email;
+            if (email) {
+                const quizBody = QuizTaker.emailQuizHTML(quizData['applicants'][rollNo]);
+                await Utils.mail(email, null, quizBody.body, quizBody.subject)
+            }
+            const obj = {};
+            obj[id] = quizData;
+            await firebase.database().ref().update(obj);
+            response.status(200).send({ message: `Quiz submitted successfully${email ? ', check your email for results' : ''}` });
+            return;
+        } catch (e) {
+            response.status(500).send({ error: 'Unknown error occured' })
         }
     }
 

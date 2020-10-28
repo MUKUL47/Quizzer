@@ -30,7 +30,6 @@ export default class QuizMaker {
             }
             delete quizData.applicants;
             if (answer == 'true') {
-                console.log(otp, quizData.authentication)
                 if (!otp || !Utils.validateOtp(quizData.authentication, otp)) {
                     response.status(403).send({ error: 'Access Denied' });
                     return;
@@ -66,7 +65,6 @@ export default class QuizMaker {
                 return;
             }
             const secret = Utils.getRand(100000, 999999);
-            console.log(quizData)
             const email = quizData.owner.email;
             await Utils.mail(email, secret);
             quizData['authentication'] = { secret: secret, date: new Date().toISOString() }
@@ -82,7 +80,6 @@ export default class QuizMaker {
             }).join('')
             response.status(200).send({ message: `OTP sent to ${hiddenEmail}` });
         } catch (e) {
-            console.log(e)
             response.status(500).send(e)
         }
     }

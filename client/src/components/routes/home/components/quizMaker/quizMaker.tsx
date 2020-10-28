@@ -91,16 +91,18 @@ export default class QuizMaker extends React.Component {
             quizEndTime: quizData.data.quizEndTime,
             quizStartTime: quizData.data.quizStartTime
         };
-        const questions = [];
-        for (let qIdx in quizData.data.questions) {
-            const question = quizData.data.questions[qIdx];
-            questions.push({
-                question: question.question,
-                choices: Object.values(question.choices).map((c: any) => { return { c: c.choice, correct: c.isCorrect, edit: false, editedValue: '' } }),
-                id: new Date().valueOf()
-            })
-        }
-        this.setState({ ...this.state, update: { form: quizForm, questions: questions } })
+        setTimeout(() => {
+            const questions = [];
+            for (let qIdx in quizData.data.questions) {
+                const question = quizData.data.questions[qIdx];
+                questions.push({
+                    question: question.question,
+                    choices: Object.values(question.choices).map((c: any) => { return { c: c.choice, correct: c.isCorrect, edit: false, editedValue: '' } }),
+                    id: new Date().valueOf()
+                })
+            }
+            this.setState({ ...this.state, update: { form: quizForm, questions: questions } })
+        })
     }
 
     render() {

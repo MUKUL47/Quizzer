@@ -10,6 +10,10 @@ class QuizzerApi {
     public static createUpdateQuiz = '/makequiz' //makequiz/:id;
     public static validate = '/validate' //makequiz/:id;
     public static quiz = '/quiz' //makequiz/:id;              
-    public static takeQuiz = '/takequiz' //makequiz/:id;              
+    public static takeQuiz = '/takequiz' //makequiz/:id;   
+    //
+    public static registerQuiz = '/reqisterquiz'
+    public static submitQuiz = '/submitquiz'
+
 }
 export { QuizzerApi }

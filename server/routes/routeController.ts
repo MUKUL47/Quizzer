@@ -17,7 +17,8 @@ routes.post(Routes.makeQuiz, QuizMaker.createQuiz);
 routes.put(Routes.updateQuiz, validateId, validateQuiz, QuizMaker.updateQuiz);
 routes.get(Routes.quiz, validateId, validateQuiz, QuizMaker.getQuiz);
 routes.get(Routes.validate, validateQuiz, QuizMaker.validateUser);
-routes.put(Routes.takeQuiz, validateId, validateQuiz, QuizTaker.takeQuiz);
+routes.put(Routes.registerQuiz, validateId, validateQuiz, QuizTaker.registerForQuiz);
+routes.put(Routes.submitQuiz, validateId, validateQuiz, QuizTaker.submitQuiz);
 export default routes;
 export { firebase };
 

@@ -137,7 +137,11 @@ export default function QuizInstructions(props: any) {
                     </div>
                 </div>
             </div>
-            <QuizRules open={tnc} close={() => setTnc(false)} onApprove={() => props.onQuiz(form)} />
+            {tnc ?
+                <QuizRules open={true} close={() => setTnc(false)} onApprove={() => {
+                    setTnc(false);
+                    props.onQuiz(form);
+                }} /> : null}
         </div>
     )
 }

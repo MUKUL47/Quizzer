@@ -35,20 +35,20 @@ export default class QuizTaker extends React.Component {
         this.initalizeQuiz(form.q)
     }
 
-    async initalizeQuiz(form : any){
-        try{
+    async initalizeQuiz(form: any) {
+        try {
             const props = (this.props as any);
             apiLoader.next(true);
             const submittQuizData = {
                 name: form.name,
                 email: form.email
             }
-            await Api.submitQuiz(props.match.params.id, form.rollNumber, submittQuizData)
+            await Api.registerOrSubmit(props.match.params.id, form.rollNumber, submittQuizData, true)
             apiLoader.next(false);
             const goFullScreen: any = document.querySelector('#goFullScreen');
             goFullScreen.click();
             this.setState({ type: 'quiz', form: form });
-        }catch(e){
+        } catch (e) {
             toastPopup.next({ message: e.response.data.error, label: 'Error' });
             apiLoader.next(false);
 
@@ -57,7 +57,7 @@ export default class QuizTaker extends React.Component {
 
     async submitQuiz(allFormData: any, manualSubmit?: boolean) {
         apiLoader.next(true);
-        if(window.innerHeight === window.outerHeight){
+        if (window.innerHeight === window.outerHeight) {
             const exitFullScreen: any = document.querySelector('#exitFullScreen');
             exitFullScreen.click();
         }
@@ -76,9 +76,9 @@ export default class QuizTaker extends React.Component {
                 })
             }
             const props = (this.props as any);
-            const r = await Api.submitQuiz(props.match.params.id, allFormData.form.rollNumber, submittQuizData)
+            const r = await Api.registerOrSubmit(props.match.params.id, allFormData.form.rollNumber, submittQuizData, false)
             apiLoader.next(false);
-            toastPopup.next({ message: r.response.data.message, label: 'Quiz' });
+            toastPopup.next({ message: r.data.message, label: 'Quiz' });
             props.history.push('/');
         } catch (e) {
             toastPopup.next({ message: e.response.data.error, label: 'Error' });

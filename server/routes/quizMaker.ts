@@ -21,9 +21,7 @@ export default class QuizMaker {
             const otp: string = request.headers.otp;
             let quizData = request.quizData;
             delete quizData.applicants;
-            console.log(otp, quizData.authentication, answer)
             if (answer == 'true') {
-                console.log(otp, quizData.authentication)
                 if (!otp || !Utils.validateOtp(quizData.authentication, otp)) {
                     response.status(403).send({ error: 'Access Denied' });
                     return;
