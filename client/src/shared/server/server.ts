@@ -44,4 +44,11 @@ export default class Api {
             axios.put(finalUrl, quizData).then((response) => resolve(response)).catch((err) => reject(err));
         })
     }
+    //
+    public static registerOrSubmit(quizId: string, rollNumber: string, quizData: any, isRegister?: boolean): Promise<any> {
+        return new Promise((resolve, reject) => {
+            const finalUrl = `${QuizzerApi.base}${isRegister ? QuizzerApi.registerQuiz : QuizzerApi.submitQuiz}/${quizId}/${rollNumber}`;
+            axios.put(finalUrl, quizData).then((response) => resolve(response)).catch((err) => reject(err));
+        })
+    }
 }
