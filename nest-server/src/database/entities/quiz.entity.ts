@@ -29,12 +29,13 @@ export default class Quiz {
   createdBy: number;
 
   @OneToMany(() => Question, (question) => question.quiz, {
-    cascade: true,
+    onDelete: 'CASCADE',
+    orphanedRowAction: 'delete',
+    onUpdate: 'CASCADE',
   })
-  questions: Question[];
+  questions!: Question[];
 
   @OneToMany(() => Results, (results) => results.quiz, {
-    cascade: true,
     onDelete: 'CASCADE',
   })
   results: Results[];

@@ -10,14 +10,17 @@ import {
   Query,
   Req,
   UseGuards,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { User } from 'src/database/entities';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { PaginatedResponse } from 'src/interfaces';
 import { QuizService } from 'src/services';
-import { QuizCreateDto, QuizUpdateDto } from './dto';
+import { QuizCreateDto, QuizUpdateDto } from './quiz.dto';
 @Controller('quiz')
 @UseGuards(JwtGuard)
+@UsePipes(new ValidationPipe({ whitelist: true, forbidUnknownValues: true }))
 export class QuizController {
   constructor(private quizService: QuizService) {}
   @Post()

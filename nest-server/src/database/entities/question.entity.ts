@@ -20,11 +20,10 @@ export default class Question {
   @CreateDateColumn()
   createdAt: Date;
 
-  @ManyToOne(() => Quiz, (quiz) => quiz.results)
-  quiz: Quiz;
+  @ManyToOne(() => Quiz, (quiz) => quiz.id, { onDelete: 'CASCADE' })
+  quiz: number;
 
   @OneToMany(() => Mcq, (mcq) => mcq.question, {
-    cascade: true,
     onDelete: 'CASCADE',
   })
   mcqs: Mcq[];

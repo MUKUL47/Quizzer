@@ -10,7 +10,8 @@ import {
 } from 'src/database/entities';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { QuizService, UsersService } from 'src/services';
-import { QuizController } from './quiz.controller';
+import { QuestionService } from 'src/services/question.service';
+import { QuizController } from './question.controller';
 
 @Module({
   imports: [DatabaseModule, AuthModule],
@@ -18,6 +19,7 @@ import { QuizController } from './quiz.controller';
   providers: [
     UsersService,
     QuizService,
+    QuestionService,
     RepositoryProvider.getProvider(RepositoryProvider.QUIZ, Quiz),
     RepositoryProvider.getProvider(RepositoryProvider.USER, User),
     RepositoryProvider.getProvider(RepositoryProvider.MCQ, Mcq),
@@ -25,4 +27,4 @@ import { QuizController } from './quiz.controller';
     JwtGuard,
   ],
 })
-export class QuizModule {}
+export class QuestionModule {}

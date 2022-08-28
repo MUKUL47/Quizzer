@@ -1,5 +1,5 @@
-import { AuthService } from './auth.service';
 import CryptoService from './crypto.service';
+import { McqService } from './mcq.service';
 import { QuizService } from './quiz.service';
 import { UsersService } from './users.service';
-export { AuthService, CryptoService, UsersService, QuizService };
+export { CryptoService, UsersService, QuizService, McqService };

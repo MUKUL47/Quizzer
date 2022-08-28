@@ -11,13 +11,11 @@ export default class CryptoService {
     return cryptoJs.SHA256(feed).toString();
   }
   public signIn: any = (identity: string, throwError?: boolean) => {
-    console.log(this.jwtService);
     try {
       return this.jwtService.sign({ user: identity });
     } catch (e) {
-      console.log(e);
       if (throwError) {
-        throw Error(e);
+        throw new Error(e);
       }
       return false;
     }

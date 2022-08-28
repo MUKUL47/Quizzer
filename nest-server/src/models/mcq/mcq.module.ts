@@ -9,15 +9,18 @@ import {
   User,
 } from 'src/database/entities';
 import { JwtGuard } from 'src/guards/jwt.guard';
-import { QuizService, UsersService } from 'src/services';
-import { QuizController } from './quiz.controller';
+import { McqService, QuizService, UsersService } from 'src/services';
+import { QuestionService } from 'src/services/question.service';
+import { McqController } from './mcq.controller';
 
 @Module({
   imports: [DatabaseModule, AuthModule],
-  controllers: [QuizController],
+  controllers: [McqController],
   providers: [
     UsersService,
     QuizService,
+    McqService,
+    QuestionService,
     RepositoryProvider.getProvider(RepositoryProvider.QUIZ, Quiz),
     RepositoryProvider.getProvider(RepositoryProvider.USER, User),
     RepositoryProvider.getProvider(RepositoryProvider.MCQ, Mcq),

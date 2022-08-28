@@ -12,6 +12,8 @@ export default class Mcq {
   @Column({ type: 'varchar', length: 100 })
   name: string;
 
-  @ManyToOne(() => Question, (question) => question.mcqs)
-  question: Question;
+  @ManyToOne(() => Question, (question) => question.mcqs, {
+    onDelete: 'CASCADE',
+  })
+  question: number;
 }
